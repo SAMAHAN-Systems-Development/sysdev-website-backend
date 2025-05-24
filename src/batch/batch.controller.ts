@@ -1,8 +1,18 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { BatchService } from './batch.service';
 import { CreateBatchDto } from './dto/create-batch.dto';
 import { UpdateBatchDto } from './dto/update-batch.dto';
-
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+@UseGuards(JwtAuthGuard)
 @Controller('batch')
 export class BatchController {
   constructor(private readonly batchService: BatchService) {}
