@@ -1,9 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
+import {
+  DATABASE_CONNECTION,
+  Database,
+} from 'src/database/database-connection';
 
 @Injectable()
 export class MembersService {
+  constructor(
+    @Inject(DATABASE_CONNECTION)
+    private readonly db: Database,
+  ) {}
   create(createMemberDto: CreateMemberDto) {
     return 'This action adds a new member';
   }

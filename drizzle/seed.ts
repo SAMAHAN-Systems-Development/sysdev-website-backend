@@ -12,9 +12,12 @@ import {
   batch,
   alumni,
   blogs,
+  user,
 } from './schema'; // Adjust path as needed
 import { faker } from '@faker-js/faker';
 import { Logger } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
+import { CreateBucketCommand, S3Client } from '@aws-sdk/client-s3';
 dotenv.config();
 
 const logger = new Logger('Seeder');
@@ -27,7 +30,28 @@ const pool = new Pool({
   connectionString: DATABASE_URL,
   max: 1,
 });
+const s3 = new S3Client({
+  region: 'asia',
+  endpoint: 'http://localhost:9000',
+  forcePathStyle: true,
+  credentials: {
+    accessKeyId: 'minioadmin',
+    secretAccessKey: 'minioadmin123',
+  },
+});
 
+async function createBucket(bucketName: string) {
+  try {
+    await s3.send(new CreateBucketCommand({ Bucket: bucketName }));
+    logger.log(`✅ Bucket "${bucketName}" created`);
+  } catch (error: any) {
+    if (error.Code === 'BucketAlreadyOwnedByYou') {
+      logger.log(`⚠️ Bucket "${bucketName}" already exists`);
+    } else {
+      logger.error('❌ Error creating bucket:', error.message || error);
+    }
+  }
+}
 const db = drizzle(pool);
 export async function seedProjects() {
   logger.log('Seeding projects...');
@@ -172,9 +196,35 @@ export async function seedBlogs() {
   logger.log('✅ Blogs seeded');
 }
 
+export async function seedUsers() {
+  try {
+    const userData = [
+      {
+        email: 'aj1@gmail.com',
+        password: 'secretPassword',
+      },
+      {
+        email: 'aj2@gmail.com',
+        password: 'secretPassword',
+      },
+    ];
+
+    for (const user of userData) {
+      user.password = await bcrypt.hash(user.password, 10);
+    }
+
+    await db.insert(user).values(userData);
+    Logger.log('User Added');
+  } catch (error) {
+    Logger.error('User might already exists, or something went wrong', error);
+  }
+}
+
 async function main() {
   try {
     logger.log('🌱 Starting seeding...');
+    await createBucket(process.env.IMAGE_BUCKET);
+    await seedUsers();
     await seedProjects();
     await seedRoles();
     await seedMembers();

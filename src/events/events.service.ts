@@ -1,9 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
+import {
+  DATABASE_CONNECTION,
+  Database,
+} from 'src/database/database-connection';
 
 @Injectable()
 export class EventsService {
+  constructor(
+    @Inject(DATABASE_CONNECTION)
+    private readonly db: Database,
+  ) {}
   create(createEventDto: CreateEventDto) {
     return 'This action adds a new event';
   }

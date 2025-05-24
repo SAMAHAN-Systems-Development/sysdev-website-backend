@@ -22,7 +22,16 @@ export const typeTagEnum = pgEnum('type_tag', [
   'external',
   'cross_orgs',
 ]);
-
+export const user = pgTable('user', {
+  id: serial('id').primaryKey(),
+  email: varchar('email').notNull(),
+  password: varchar('password').notNull(),
+  modified_at: timestamp('modified_at')
+    .defaultNow()
+    .notNull()
+    .$onUpdate(() => new Date()),
+  created_at: timestamp('created_at'),
+});
 export const project = pgTable('project', {
   id: serial('id').primaryKey(),
   title: varchar('title', { length: 255 }).notNull(),
@@ -34,11 +43,21 @@ export const project = pgTable('project', {
   status: statusTagEnum('status').notNull(),
   type: typeTagEnum('type').notNull(),
   featured: boolean('featured').default(false).notNull(),
+  modified_at: timestamp('modified_at')
+    .defaultNow()
+    .notNull()
+    .$onUpdate(() => new Date()),
+  created_at: timestamp('created_at'),
 });
 
 export const role = pgTable('role', {
   id: serial('id').primaryKey(),
   name: varchar('name', { length: 255 }).unique().notNull(),
+  modified_at: timestamp('modified_at')
+    .defaultNow()
+    .notNull()
+    .$onUpdate(() => new Date()),
+  created_at: timestamp('created_at'),
 });
 
 export const member = pgTable('member', {
@@ -47,6 +66,11 @@ export const member = pgTable('member', {
   name: varchar('name', { length: 255 }).notNull(),
   email: varchar('email', { length: 255 }).notNull(),
   photo: varchar('photo', { length: 2048 }).notNull(),
+  modified_at: timestamp('modified_at')
+    .defaultNow()
+    .notNull()
+    .$onUpdate(() => new Date()),
+  created_at: timestamp('created_at'),
 });
 
 export const collaborator = pgTable('collaborator', {
@@ -55,6 +79,11 @@ export const collaborator = pgTable('collaborator', {
     .references(() => project.id)
     .notNull(),
   assignedAt: timestamp('assigned_at').defaultNow().notNull(),
+  modified_at: timestamp('modified_at')
+    .defaultNow()
+    .notNull()
+    .$onUpdate(() => new Date()),
+  created_at: timestamp('created_at'),
 });
 
 export const collaboratorMembers = pgTable('collaborator_members', {
@@ -64,6 +93,12 @@ export const collaboratorMembers = pgTable('collaborator_members', {
   memberId: integer('member_id')
     .references(() => member.id)
     .notNull(),
+
+  modified_at: timestamp('modified_at')
+    .defaultNow()
+    .notNull()
+    .$onUpdate(() => new Date()),
+  created_at: timestamp('created_at'),
 });
 
 export const collaboratorRoles = pgTable('collaborator_roles', {
@@ -73,20 +108,44 @@ export const collaboratorRoles = pgTable('collaborator_roles', {
   roleId: integer('role_id')
     .references(() => role.id)
     .notNull(),
+
+  modified_at: timestamp('modified_at')
+    .defaultNow()
+    .notNull()
+    .$onUpdate(() => new Date()),
+  created_at: timestamp('created_at'),
 });
 export const batch = pgTable('batch', {
   id: serial('id').primaryKey(),
   batch_name: varchar('batch_name'),
+
+  modified_at: timestamp('modified_at')
+    .defaultNow()
+    .notNull()
+    .$onUpdate(() => new Date()),
+  created_at: timestamp('created_at'),
 });
 export const alumni = pgTable('alumni', {
   id: serial('id').primaryKey(),
   batch_id: integer('batch_id').references(() => batch.id),
   fullname: varchar().notNull(),
+
+  modified_at: timestamp('modified_at')
+    .defaultNow()
+    .notNull()
+    .$onUpdate(() => new Date()),
+  created_at: timestamp('created_at'),
 });
 
 export const event = pgTable('event', {
   id: serial('id').primaryKey(),
   name: varchar('name', { length: 255 }).unique().notNull(),
+
+  modified_at: timestamp('modified_at')
+    .defaultNow()
+    .notNull()
+    .$onUpdate(() => new Date()),
+  created_at: timestamp('created_at'),
 });
 
 export const blogs = pgTable('blogs', {
@@ -95,4 +154,10 @@ export const blogs = pgTable('blogs', {
   tag: integer('tag').references(() => event.id),
   cover_image: varchar('cover_image'),
   link: varchar('link'),
+
+  modified_at: timestamp('modified_at')
+    .defaultNow()
+    .notNull()
+    .$onUpdate(() => new Date()),
+  created_at: timestamp('created_at'),
 });

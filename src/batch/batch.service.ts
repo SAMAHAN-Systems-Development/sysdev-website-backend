@@ -1,9 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateBatchDto } from './dto/create-batch.dto';
 import { UpdateBatchDto } from './dto/update-batch.dto';
+import {
+  DATABASE_CONNECTION,
+  Database,
+} from 'src/database/database-connection';
 
 @Injectable()
 export class BatchService {
+  constructor(
+    @Inject(DATABASE_CONNECTION)
+    private readonly db: Database,
+  ) {}
   create(createBatchDto: CreateBatchDto) {
     return 'This action adds a new batch';
   }

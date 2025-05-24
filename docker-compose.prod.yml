@@ -1,0 +1,53 @@
+
+services:
+  postgres: 
+    image: postgres
+    container_name: postgress_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432" # Data base port
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  minio:
+    image: minio/minio
+    container_name: file_storage
+    ports:
+      - "9000:9000" # API
+      - "9001:9001" # Console UI
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin123
+    volumes:
+      - miniodata:/data
+    command: server /data --console-address ":9001"
+  pgadmin:
+      image: dpage/pgadmin4
+      container_name: pgadmin
+      environment:
+        PGADMIN_DEFAULT_EMAIL: admin@admin.com
+        PGADMIN_DEFAULT_PASSWORD: admin
+      ports:
+        - "8080:80"
+      depends_on:
+        - postgres
+
+  sysdev-website:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sysdev-website
+    restart: always
+    environment:
+      DATABASE_URL: postgres://postgres:password@postgres:5432/mydb
+    ports:
+      - "3000:3000" # Local port
+    depends_on:
+      - postgres
+
+volumes:
+  pgdata:
+  miniodata:

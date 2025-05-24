@@ -39,23 +39,25 @@ For Linux:
 cp .env.sample .env
 ```
 
-6. Change important `.env` variables
-
-- `service role key` and set the value of `supabase_key` in your .env file to the value of the service role key. ( You can get this later after starting supabase docker container)
-<!-- - Generate JWT Secret, run this line on the terminal:
+6. Generation of Jwt secret:
 
 ```bash
 node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
-``` -->
+```
+*This will print a code, and put this code in AUTH_SECRET*
 
 7. Update the datebase by the drizzle migrations with these commands:
 
 ```bash
-npm run db:migrate:reset
+npm run db:migrate
 ```
-this will add the current migration + seed new data to database.
 
-### Running Application
+8. Generate Data 
+```bash
+npm run db:seed
+```
+
+### Running Application -- Backend Dev
 
 If you just turned your pc on and you want to start the application, run the following commands:
 
@@ -74,7 +76,7 @@ npm i
 3. Run the docker containers (make sure that you already started your docker application)
 
 ```bash
-npm run db:start
+docker compose -f docker-compose.local.yml up -d
 ```
 
 4. Run the NestJS backend
@@ -86,5 +88,51 @@ npm run start
 - 📌 After you finish programming, run this command to stop the docker containers:
 
   ```bash
-  npm run db:stop
+  docker compose -f docker-compose.local.yml down
   ```
+
+
+### Running Application -- Production / Frontend
+
+On the root folder just follow the instruction below: 
+
+1. Pull from the main
+
+```bash
+git pull origin main
+```
+
+3. Run the docker containers (make sure that you already started your docker application)
+
+```bash
+docker compose -f docker-compose.prod.yml up -d
+```
+
+4. Run the NestJS backend
+
+```bash
+npm run start
+```
+
+- 📌 In some cases you want to shutdown, run this command to stop the docker containers:
+
+  ```bash
+  docker compose -f docker-compose.prod.yml down
+  ```
+
+### Potential Issues and Fixes
+In some cases, if backend and the current code doesnt work run this following command:
+
+```bash
+docker compose -f docker-compose.prod.yml up -d --build
+```
+*This will sync the current code and the build in docker*
+
+****
+Resetting the database
+
+Requirements: docker compose should be running --- then execute this following command:
+```
+docker compose -f docker-compose.prod.yml down -v
+```
+*This will reset Minio, Postgress*
