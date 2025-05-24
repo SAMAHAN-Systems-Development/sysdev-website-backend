@@ -1,4 +1,13 @@
 # Samahan Official Website Backend
+
+## Web GUIs and Credentials
+| Service       | URL             | Description        | Default Credentials         |
+|---------------|------------------|--------------------|-----------------------------|
+| MinIO         | `http://localhost:9001` | Object storage GUI | `minioadmin` / `minioadmin123`     |
+| pgAdmin       | `http://localhost:8080` | PostgreSQL GUI     | `admin@admin.co` / `admin`     |
+
+*Just make sure that you have already executed the docker-compose*
+
 ### Setting up your application
 
 1. Clone the repository
@@ -121,7 +130,7 @@ npm run start
   ```
 
 ### Potential Issues and Fixes
-In some cases, if backend and the current code doesnt work run this following command:
+In some cases, if backend and the current code doesnt work. Run this following command:
 
 ```bash
 docker compose -f docker-compose.prod.yml up -d --build
