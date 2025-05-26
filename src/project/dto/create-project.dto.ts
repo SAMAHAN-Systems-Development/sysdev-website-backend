@@ -41,10 +41,6 @@ export class CreateProjectDto {
   @IsOptional()
   links?: ProjectLinkDto[];
 
-  @IsArray()
-  @IsString({ each: true })
-  images: string[];
-
   @IsEnum(statusTagEnum.enumValues)
   status: (typeof statusTagEnum.enumValues)[number];
 

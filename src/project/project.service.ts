@@ -6,15 +6,58 @@ import {
   DATABASE_CONNECTION,
 } from 'src/database/database-connection';
 import { project } from 'drizzle/schema';
+import { MinioService } from 'src/minio/minio.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class ProjectService {
   constructor(
     @Inject(DATABASE_CONNECTION)
     private readonly db: Database,
+    private readonly miniIoService: MinioService,
+    private readonly configService: ConfigService,
   ) {}
-  create(createProjectDto: CreateProjectDto) {
-    return 'This action adds a new project';
+
+  async create(
+    createProjectDto: CreateProjectDto,
+    imageFiles: Express.Multer.File[],
+  ) {
+    const bucketName = this.configService.get<string>('IMAGE_BUCKET');
+    const uploadResults = await Promise.all(
+      imageFiles.map((file) =>
+        this.miniIoService.uploadObject(file, bucketName),
+      ),
+    );
+
+    const imageUrls = uploadResults.map((res) => res.url);
+
+    const {
+      title,
+      briefDesc,
+      fullDesc,
+      dateLaunched,
+      links,
+      status,
+      type,
+      featured = false,
+    } = createProjectDto;
+
+    const inserted = await this.db
+      .insert(project)
+      .values({
+        title,
+        briefDesc,
+        fullDesc,
+        dateLaunched: new Date(dateLaunched),
+        links: links ?? null,
+        images: imageUrls,
+        status,
+        type,
+        featured,
+      })
+      .returning();
+
+    return inserted[0];
   }
 
   findAll() {
