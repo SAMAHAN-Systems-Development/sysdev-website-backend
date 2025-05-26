@@ -15,6 +15,13 @@
       "when": 1748069317312,
       "tag": "0001_Added_user_and_timestamps",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1748267999084,
+      "tag": "0002_Added_default_now_date_on_schema",
+      "breakpoints": true
     }
   ]
 }

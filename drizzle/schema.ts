@@ -30,7 +30,7 @@ export const user = pgTable('user', {
     .defaultNow()
     .notNull()
     .$onUpdate(() => new Date()),
-  created_at: timestamp('created_at'),
+  created_at: timestamp('created_at').defaultNow().defaultNow(),
 });
 export const project = pgTable('project', {
   id: serial('id').primaryKey(),
@@ -47,7 +47,7 @@ export const project = pgTable('project', {
     .defaultNow()
     .notNull()
     .$onUpdate(() => new Date()),
-  created_at: timestamp('created_at'),
+  created_at: timestamp('created_at').defaultNow(),
 });
 
 export const role = pgTable('role', {
@@ -57,7 +57,7 @@ export const role = pgTable('role', {
     .defaultNow()
     .notNull()
     .$onUpdate(() => new Date()),
-  created_at: timestamp('created_at'),
+  created_at: timestamp('created_at').defaultNow(),
 });
 
 export const member = pgTable('member', {
@@ -70,7 +70,7 @@ export const member = pgTable('member', {
     .defaultNow()
     .notNull()
     .$onUpdate(() => new Date()),
-  created_at: timestamp('created_at'),
+  created_at: timestamp('created_at').defaultNow(),
 });
 
 export const collaborator = pgTable('collaborator', {
@@ -83,7 +83,7 @@ export const collaborator = pgTable('collaborator', {
     .defaultNow()
     .notNull()
     .$onUpdate(() => new Date()),
-  created_at: timestamp('created_at'),
+  created_at: timestamp('created_at').defaultNow(),
 });
 
 export const collaboratorMembers = pgTable('collaborator_members', {
@@ -98,7 +98,7 @@ export const collaboratorMembers = pgTable('collaborator_members', {
     .defaultNow()
     .notNull()
     .$onUpdate(() => new Date()),
-  created_at: timestamp('created_at'),
+  created_at: timestamp('created_at').defaultNow(),
 });
 
 export const collaboratorRoles = pgTable('collaborator_roles', {
@@ -113,7 +113,7 @@ export const collaboratorRoles = pgTable('collaborator_roles', {
     .defaultNow()
     .notNull()
     .$onUpdate(() => new Date()),
-  created_at: timestamp('created_at'),
+  created_at: timestamp('created_at').defaultNow(),
 });
 export const batch = pgTable('batch', {
   id: serial('id').primaryKey(),
@@ -123,7 +123,7 @@ export const batch = pgTable('batch', {
     .defaultNow()
     .notNull()
     .$onUpdate(() => new Date()),
-  created_at: timestamp('created_at'),
+  created_at: timestamp('created_at').defaultNow(),
 });
 export const alumni = pgTable('alumni', {
   id: serial('id').primaryKey(),
@@ -134,7 +134,7 @@ export const alumni = pgTable('alumni', {
     .defaultNow()
     .notNull()
     .$onUpdate(() => new Date()),
-  created_at: timestamp('created_at'),
+  created_at: timestamp('created_at').defaultNow(),
 });
 
 export const event = pgTable('event', {
@@ -145,7 +145,7 @@ export const event = pgTable('event', {
     .defaultNow()
     .notNull()
     .$onUpdate(() => new Date()),
-  created_at: timestamp('created_at'),
+  created_at: timestamp('created_at').defaultNow(),
 });
 
 export const blogs = pgTable('blogs', {
@@ -159,5 +159,5 @@ export const blogs = pgTable('blogs', {
     .defaultNow()
     .notNull()
     .$onUpdate(() => new Date()),
-  created_at: timestamp('created_at'),
+  created_at: timestamp('created_at').defaultNow(),
 });
