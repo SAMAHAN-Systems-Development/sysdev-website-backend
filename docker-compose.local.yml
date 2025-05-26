@@ -1,6 +1,5 @@
-
 services:
-  postgres: 
+  postgres:
     image: postgres
     container_name: postgress_db
     environment:
@@ -8,26 +7,26 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: mydb
     ports:
-      - "5432:5432" # Data base port
+      - '5433:5432' # Data base port
     volumes:
       - pgdata:/var/lib/postgresql/data
   pgadmin:
-      image: dpage/pgadmin4
-      container_name: pgadmin
-      environment:
-        PGADMIN_DEFAULT_EMAIL: admin@admin.com
-        PGADMIN_DEFAULT_PASSWORD: admin
-      ports:
-        - "8080:80"
-      depends_on:
-        - postgres
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - '8080:80'
+    depends_on:
+      - postgres
 
   minio:
     image: minio/minio
     container_name: file_storage
     ports:
-      - "9000:9000" # API
-      - "9001:9001" # Console UI
+      - '9000:9000' # API
+      - '9001:9001' # Console UI
     environment:
       MINIO_ROOT_USER: minioadmin
       MINIO_ROOT_PASSWORD: minioadmin123
