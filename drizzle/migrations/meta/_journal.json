@@ -19,8 +19,8 @@
     {
       "idx": 2,
       "version": "7",
-      "when": 1748267999084,
-      "tag": "0002_Added_default_now_date_on_schema",
+      "when": 1748268273305,
+      "tag": "0002_Added_default_now_date",
       "breakpoints": true
     }
   ]

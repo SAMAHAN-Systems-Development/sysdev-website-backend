@@ -30,7 +30,7 @@ export const user = pgTable('user', {
     .defaultNow()
     .notNull()
     .$onUpdate(() => new Date()),
-  created_at: timestamp('created_at').defaultNow().defaultNow(),
+  created_at: timestamp('created_at').defaultNow(),
 });
 export const project = pgTable('project', {
   id: serial('id').primaryKey(),
