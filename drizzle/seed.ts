@@ -2,17 +2,15 @@ import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
 import * as dotenv from 'dotenv';
 import {
-  project,
-  member,
-  role,
+  projects,
+  members,
+  roles,
   collaborator,
-  collaboratorMembers,
-  collaboratorRoles,
-  event,
+  events,
   batch,
   alumni,
   blogs,
-  user,
+  users,
 } from './schema'; // Adjust path as needed
 import { faker } from '@faker-js/faker';
 import { Logger } from '@nestjs/common';
@@ -53,9 +51,9 @@ async function createBucket(bucketName: string) {
   }
 }
 const db = drizzle(pool);
-export async function seedProjects() {
-  logger.log('Seeding projects...');
-  await db.insert(project).values([
+export async function seedProjectss() {
+  logger.log('Seeding projectss...');
+  await db.insert(projects).values([
     {
       title: 'Enterprise Portal',
       briefDesc: 'A portal for managing enterprise operations.',
@@ -71,12 +69,12 @@ export async function seedProjects() {
       featured: true,
     },
   ]);
-  logger.log('✅ Projects seeded');
+  logger.log('✅ Projectss seeded');
 }
 
-export async function seedMembers() {
-  logger.log('Seeding members...');
-  await db.insert(member).values([
+export async function seedMemberss() {
+  logger.log('Seeding memberss...');
+  await db.insert(members).values([
     {
       name: 'Alice Johnson',
       email: faker.internet.email(),
@@ -88,58 +86,29 @@ export async function seedMembers() {
       photo: faker.image.avatar(),
     },
   ]);
-  logger.log('✅ Members seeded');
+  logger.log('✅ Memberss seeded');
 }
 
-export async function seedRoles() {
-  logger.log('Seeding roles...');
-  await db.insert(role).values([{ name: 'Developer' }, { name: 'Designer' }]);
-  logger.log('✅ Roles seeded');
+export async function seedRoless() {
+  logger.log('Seeding roless...');
+  await db.insert(roles).values([{ name: 'Developer' }, { name: 'Designer' }]);
+  logger.log('✅ Roless seeded');
 }
 
 export async function seedCollaborators() {
   logger.log('Seeding collaborators...');
-  const [firstProject] = await db.select().from(project).limit(1);
-  if (!firstProject)
-    throw new Error('No project found to associate collaborators.');
+  const [firstProjects] = await db.select().from(projects).limit(1);
+  if (!firstProjects)
+    throw new Error('No projects found to associate collaborators.');
 
   await db.insert(collaborator).values([
     {
-      projectId: firstProject.id,
+      projectId: firstProjects.id,
     },
   ]);
   logger.log('✅ Collaborators seeded');
 }
 
-export async function seedCollaboratorMembers() {
-  logger.log('Seeding collaborator_members...');
-  const [firstCollaborator] = await db.select().from(collaborator).limit(1);
-  const membersList = await db.select().from(member);
-
-  if (!firstCollaborator || membersList.length < 2)
-    throw new Error('Missing collaborators or members');
-
-  await db.insert(collaboratorMembers).values([
-    { collaboratorId: firstCollaborator.id, memberId: membersList[0].id },
-    { collaboratorId: firstCollaborator.id, memberId: membersList[1].id },
-  ]);
-  logger.log('✅ Collaborator members seeded');
-}
-
-export async function seedCollaboratorRoles() {
-  logger.log('Seeding collaborator_roles...');
-  const [firstCollaborator] = await db.select().from(collaborator).limit(1);
-  const rolesList = await db.select().from(role);
-
-  if (!firstCollaborator || rolesList.length < 2)
-    throw new Error('Missing collaborators or roles');
-
-  await db.insert(collaboratorRoles).values([
-    { collaboratorId: firstCollaborator.id, roleId: rolesList[0].id },
-    { collaboratorId: firstCollaborator.id, roleId: rolesList[1].id },
-  ]);
-  logger.log('✅ Collaborator roles seeded');
-}
 export async function seedBatches() {
   logger.log('Seeding batches...');
   await db
@@ -166,29 +135,29 @@ export async function seedAlumni() {
   logger.log('✅ Alumni seeded');
 }
 
-export async function seedEvents() {
-  logger.log('Seeding events...');
+export async function seedEventss() {
+  logger.log('Seeding eventss...');
   await db
-    .insert(event)
+    .insert(events)
     .values([{ name: 'Founders Day' }, { name: 'Hackathon 2025' }]);
-  logger.log('✅ Events seeded');
+  logger.log('✅ Eventss seeded');
 }
 
 export async function seedBlogs() {
   logger.log('Seeding blogs...');
-  const events = await db.select().from(event);
-  if (events.length === 0) throw new Error('No events found');
+  const eventss = await db.select().from(events);
+  if (eventss.length === 0) throw new Error('No eventss found');
 
   await db.insert(blogs).values([
     {
       title: 'Celebrating Founders Day',
-      tag: events[0].id,
+      tag: eventss[0].id,
       cover_image: faker.image.urlPicsumPhotos(),
       link: faker.internet.url(),
     },
     {
       title: 'Hackathon Highlights',
-      tag: events[1].id,
+      tag: eventss[1].id,
       cover_image: faker.image.urlPicsumPhotos(),
       link: faker.internet.url(),
     },
@@ -196,9 +165,9 @@ export async function seedBlogs() {
   logger.log('✅ Blogs seeded');
 }
 
-export async function seedUsers() {
+export async function seedUserss() {
   try {
-    const userData = [
+    const usersData = [
       {
         email: 'aj1@gmail.com',
         password: 'secretPassword',
@@ -209,14 +178,14 @@ export async function seedUsers() {
       },
     ];
 
-    for (const user of userData) {
-      user.password = await bcrypt.hash(user.password, 10);
+    for (const users of usersData) {
+      users.password = await bcrypt.hash(users.password, 10);
     }
 
-    await db.insert(user).values(userData);
-    Logger.log('User Added');
+    await db.insert(users).values(usersData);
+    Logger.log('Users Added');
   } catch (error) {
-    Logger.error('User might already exists, or something went wrong', error);
+    Logger.error('Users might already exists, or something went wrong', error);
   }
 }
 
@@ -224,16 +193,14 @@ async function main() {
   try {
     logger.log('🌱 Starting seeding...');
     await createBucket(process.env.IMAGE_BUCKET);
-    await seedUsers();
-    await seedProjects();
-    await seedRoles();
-    await seedMembers();
+    await seedUserss();
+    await seedProjectss();
+    await seedRoless();
+    await seedMemberss();
     await seedCollaborators();
-    await seedCollaboratorMembers();
-    await seedCollaboratorRoles();
     await seedBatches();
     await seedAlumni();
-    await seedEvents();
+    await seedEventss();
     await seedBlogs();
     logger.log('🌱 Seeding complete');
   } catch (error) {
