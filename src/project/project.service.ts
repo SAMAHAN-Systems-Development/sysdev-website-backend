@@ -5,7 +5,7 @@ import {
   Database,
   DATABASE_CONNECTION,
 } from 'src/database/database-connection';
-import { project } from 'drizzle/schema';
+import { projects } from 'drizzle/schema';
 
 @Injectable()
 export class ProjectService {
@@ -18,7 +18,7 @@ export class ProjectService {
   }
 
   findAll() {
-    return this.db.select().from(project);
+    return this.db.select().from(projects);
   }
 
   findOne(id: number) {
