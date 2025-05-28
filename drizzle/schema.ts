@@ -58,7 +58,7 @@ export const members = pgTable('members', {
   roleId: integer('role_id').references(() => roles.id),
   name: varchar('name', { length: 255 }).notNull(),
   email: varchar('email', { length: 255 }).notNull(),
-  photo: varchar('photo', { length: 2048 }).notNull(),
+  photo: varchar('photo', { length: 2048 }),
   isValid: boolean('is_valid').default(false),
   modifiedAt: timestamp('modified_at')
     .defaultNow()
