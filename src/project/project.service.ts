@@ -1,4 +1,8 @@
-import { Inject, Injectable } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import {
@@ -6,6 +10,7 @@ import {
   DATABASE_CONNECTION,
 } from 'src/database/database-connection';
 import { project } from 'drizzle/schema';
+import { eq } from 'drizzle-orm';
 
 @Injectable()
 export class ProjectService {
@@ -25,8 +30,19 @@ export class ProjectService {
     return `This action returns a #${id} project`;
   }
 
-  update(id: number, updateProjectDto: UpdateProjectDto) {
-    return `This action updates a #${id} project`;
+  async update(id: number, updateProjectDto: UpdateProjectDto): Promise<void> {
+    try {
+      await this.db
+        .update(project)
+        .set(updateProjectDto)
+        .where(eq(project.id, id))
+        .returning();
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to update project', {
+        cause: error,
+        description: error.message || undefined,
+      });
+    }
   }
 
   remove(id: number) {
