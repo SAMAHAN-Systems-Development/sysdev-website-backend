@@ -10,6 +10,7 @@
     "db:generate:drop": "npx drizzle-kit drop",
     "db:migrate": "npx drizzle-kit migrate",
     "db:seed": "ts-node drizzle/seed.ts",
+    "db:studio": "npx drizzle-kit studio",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
