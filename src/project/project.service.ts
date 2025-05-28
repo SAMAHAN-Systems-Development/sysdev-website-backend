@@ -11,6 +11,7 @@ import {
 } from 'src/database/database-connection';
 import { projects } from 'drizzle/schema';
 import { eq } from 'drizzle-orm';
+import type { Project } from './entities/project.entity';
 
 @Injectable()
 export class ProjectService {
@@ -30,13 +31,18 @@ export class ProjectService {
     return `This action returns a #${id} project`;
   }
 
-  async update(id: number, updateProjectDto: UpdateProjectDto): Promise<void> {
+  async update(
+    id: number,
+    updateProjectDto: UpdateProjectDto,
+  ): Promise<Project> {
     try {
-      await this.db
-        .update(projects)
-        .set(updateProjectDto)
-        .where(eq(projects.id, id))
-        .returning();
+      return (
+        await this.db
+          .update(projects)
+          .set(updateProjectDto)
+          .where(eq(projects.id, id))
+          .returning()
+      )[0];
     } catch (error) {
       throw new InternalServerErrorException('Failed to update project', {
         cause: error,
