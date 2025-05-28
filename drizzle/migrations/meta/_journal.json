@@ -36,6 +36,13 @@
       "when": 1748440182137,
       "tag": "0004_fix_member_typo",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1748447434140,
+      "tag": "0005_remove_required_member_photo",
+      "breakpoints": true
     }
   ]
 }
