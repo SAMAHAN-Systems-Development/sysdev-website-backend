@@ -11,13 +11,17 @@ import {
 } from 'src/database/database-connection';
 import { projects } from 'drizzle/schema';
 import { eq } from 'drizzle-orm';
-import type { Project } from './entities/project.entity';
+import { MinioService } from 'src/minio/minio.service';
+import { ConfigService } from '@nestjs/config';
+import { createHash } from 'crypto';
 
 @Injectable()
 export class ProjectService {
   constructor(
     @Inject(DATABASE_CONNECTION)
     private readonly db: Database,
+    private readonly miniIoService: MinioService,
+    private readonly configService: ConfigService,
   ) {}
   create(createProjectDto: CreateProjectDto) {
     return 'This action adds a new project';
@@ -34,12 +38,25 @@ export class ProjectService {
   async update(
     id: number,
     updateProjectDto: UpdateProjectDto,
-  ): Promise<Project> {
+    images: Express.Multer.File[],
+  ) {
     try {
+      const uploadResults = await Promise.all(
+        images.map((file) =>
+          this.miniIoService.uploadObject(
+            file,
+            this.configService.get<string>('IMAGE_BUCKET'),
+          ),
+        ),
+      );
+
       return (
         await this.db
           .update(projects)
-          .set(updateProjectDto)
+          .set({
+            ...updateProjectDto,
+            images: uploadResults.map((file) => file.url),
+          })
           .where(eq(projects.id, id))
           .returning()
       )[0];
