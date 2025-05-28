@@ -5,7 +5,7 @@ import {
   Database,
   DATABASE_CONNECTION,
 } from 'src/database/database-connection';
-import { role } from 'drizzle/schema';
+import { roles } from 'drizzle/schema';
 
 @Injectable()
 export class RolesService {
@@ -18,7 +18,7 @@ export class RolesService {
   }
 
   findAll() {
-    return this.db.select().from(role);
+    return this.db.select().from(roles);
   }
 
   findOne(id: number) {

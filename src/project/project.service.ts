@@ -9,7 +9,7 @@ import {
   Database,
   DATABASE_CONNECTION,
 } from 'src/database/database-connection';
-import { project } from 'drizzle/schema';
+import { projects } from 'drizzle/schema';
 import { eq } from 'drizzle-orm';
 
 @Injectable()
@@ -23,7 +23,7 @@ export class ProjectService {
   }
 
   findAll() {
-    return this.db.select().from(project);
+    return this.db.select().from(projects);
   }
 
   findOne(id: number) {
@@ -33,9 +33,9 @@ export class ProjectService {
   async update(id: number, updateProjectDto: UpdateProjectDto): Promise<void> {
     try {
       await this.db
-        .update(project)
+        .update(projects)
         .set(updateProjectDto)
-        .where(eq(project.id, id))
+        .where(eq(projects.id, id))
         .returning();
     } catch (error) {
       throw new InternalServerErrorException('Failed to update project', {
