@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   UseGuards,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { MembersService } from './members.service';
 import { CreateMemberDto } from './dto/create-member.dto';
@@ -18,6 +20,7 @@ export class MembersController {
   constructor(private readonly membersService: MembersService) {}
 
   @Post()
+  @HttpCode(HttpStatus.CREATED)
   create(@Body() createMemberDto: CreateMemberDto) {
     return this.membersService.create(createMemberDto);
   }
