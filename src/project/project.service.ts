@@ -5,7 +5,7 @@ import {
   Database,
   DATABASE_CONNECTION,
 } from 'src/database/database-connection';
-import { project } from 'drizzle/schema';
+import { projects } from 'drizzle/schema';
 import { MinioService } from 'src/minio/minio.service';
 import { ConfigService } from '@nestjs/config';
 
@@ -43,7 +43,7 @@ export class ProjectService {
     } = createProjectDto;
 
     const inserted = await this.db
-      .insert(project)
+      .insert(projects)
       .values({
         title,
         briefDesc,
@@ -61,7 +61,7 @@ export class ProjectService {
   }
 
   findAll() {
-    return this.db.select().from(project);
+    return this.db.select().from(projects);
   }
 
   findOne(id: number) {
