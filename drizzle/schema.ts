@@ -59,7 +59,7 @@ export const members = pgTable('members', {
   name: varchar('name', { length: 255 }).notNull(),
   email: varchar('email', { length: 255 }).notNull(),
   photo: varchar('photo', { length: 2048 }).notNull(),
-  isValid: boolean('is_valid').default(false),
+  isVisible: boolean('is_visible').default(false),
   modifiedAt: timestamp('modified_at')
     .defaultNow()
     .notNull()

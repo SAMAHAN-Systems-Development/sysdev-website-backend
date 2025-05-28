@@ -29,6 +29,13 @@
       "when": 1748362732489,
       "tag": "0003_major_change_structure",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1748440182137,
+      "tag": "0004_fix_member_typo",
+      "breakpoints": true
     }
   ]
 }
