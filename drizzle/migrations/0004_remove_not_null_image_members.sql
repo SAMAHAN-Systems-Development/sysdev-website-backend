@@ -1,1 +1,0 @@
-ALTER TABLE "members" ALTER COLUMN "photo" DROP NOT NULL;
