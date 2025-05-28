@@ -7,12 +7,17 @@ import {
   Param,
   Delete,
   UseGuards,
+  UseInterceptors,
+  UploadedFiles,
+  BadRequestException,
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
-import type { Project } from './entities/project.entity';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { validate } from 'class-validator';
+import { plainToInstance } from 'class-transformer';
 
 @Controller('projects')
 @UseGuards(JwtAuthGuard)
@@ -35,11 +40,24 @@ export class ProjectController {
   }
 
   @Put(':id')
-  update(
+  @UseInterceptors(FileFieldsInterceptor([{ name: 'images' }]))
+  async update(
     @Param('id') id: string,
     @Body() updateProjectDto: UpdateProjectDto,
-  ): Promise<Project> {
-    return this.projectService.update(+id, updateProjectDto);
+    @UploadedFiles() files: { images?: Express.Multer.File[] },
+  ) {
+    if (!files.images || files.images.length == 0) {
+      throw new BadRequestException('At least one image file is required');
+    }
+
+    return {
+      message: 'Project updated successfully',
+      data: await this.projectService.update(
+        +id,
+        updateProjectDto,
+        files.images,
+      ),
+    };
   }
 
   @Delete(':id')
