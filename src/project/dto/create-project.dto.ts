@@ -1,4 +1,4 @@
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import {
   IsArray,
   IsBoolean,
@@ -47,6 +47,11 @@ export class CreateProjectDto {
   @IsEnum(typeTagEnum.enumValues)
   type: (typeof typeTagEnum.enumValues)[number];
 
+  @Transform(({ value }) => {
+    if (value === 'true') return true;
+    if (value === 'false') return false;
+    return value;
+  })
   @IsBoolean()
   @IsOptional()
   featured?: boolean;

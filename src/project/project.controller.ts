@@ -17,10 +17,7 @@ import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
-import {
-  FileFieldsInterceptor,
-  FileInterceptor,
-} from '@nestjs/platform-express';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 
 @Controller('project')
 @UseGuards(JwtAuthGuard)

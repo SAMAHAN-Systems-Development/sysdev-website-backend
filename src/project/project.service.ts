@@ -43,7 +43,7 @@ export class ProjectService {
     } = createProjectDto;
 
     const inserted = await this.db
-      .insert(project)
+      .insert(projects)
       .values({
         title,
         briefDesc,
