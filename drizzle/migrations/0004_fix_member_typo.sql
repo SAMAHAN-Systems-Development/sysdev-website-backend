@@ -1,0 +1,1 @@
+ALTER TABLE "members" RENAME COLUMN "is_valid" TO "is_visible";

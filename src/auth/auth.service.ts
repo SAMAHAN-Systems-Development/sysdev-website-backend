@@ -13,7 +13,7 @@ import {
   DATABASE_CONNECTION,
 } from 'src/database/database-connection';
 import { eq } from 'drizzle-orm';
-import { user } from 'drizzle/schema';
+import { users } from 'drizzle/schema';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -29,8 +29,8 @@ export class AuthService {
     try {
       selectedUser = await this.db
         .select()
-        .from(user)
-        .where(eq(user.email, username));
+        .from(users)
+        .where(eq(users.email, username));
     } catch (error) {
       if (error instanceof NotFoundException) {
         throw new UnauthorizedException('Invalid credentials');

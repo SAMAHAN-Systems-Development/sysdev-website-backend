@@ -5,7 +5,7 @@ import {
   Database,
   DATABASE_CONNECTION,
 } from 'src/database/database-connection';
-import { project, collaborator, role, user } from 'drizzle/schema';
+import { projects } from 'drizzle/schema';
 import { eq } from 'drizzle-orm';
 
 @Injectable()
@@ -19,14 +19,14 @@ export class ProjectService {
   }
 
   findAll() {
-    return this.db.select().from(project);
+    return this.db.select().from(projects);
   }
 
   async findOne(id: number) {
     const [proj] = await this.db
     .select()
-    .from(project)
-    .where(eq(project.id, id))
+    .from(projects)
+    .where(eq(projects.id, id))
     .limit(1);
 
     if (!proj) {
