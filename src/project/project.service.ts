@@ -13,7 +13,6 @@ import { projects } from 'drizzle/schema';
 import { eq } from 'drizzle-orm';
 import { MinioService } from 'src/minio/minio.service';
 import { ConfigService } from '@nestjs/config';
-import { createHash } from 'crypto';
 
 @Injectable()
 export class ProjectService {
