@@ -8,6 +8,8 @@ import {
 import { members } from 'drizzle/schema';
 import { eq } from 'drizzle-orm';
 export type Member = typeof members.$inferSelect;
+import { NotFoundException } from '@nestjs/common';
+
 
 @Injectable()
 export class MembersService {
@@ -35,6 +37,10 @@ export class MembersService {
       })
       .where(eq(members.id, id))
       .returning();
+
+    if (!updatedMember) {
+      throw new NotFoundException(`Member with ID ${id} not found`);
+    }
 
     return updatedMember;
   }
