@@ -5,6 +5,9 @@ import {
   DATABASE_CONNECTION,
   Database,
 } from 'src/database/database-connection';
+import { members } from 'drizzle/schema';
+import { eq } from 'drizzle-orm';
+export type Member = typeof members.$inferSelect;
 
 @Injectable()
 export class MembersService {
@@ -24,8 +27,16 @@ export class MembersService {
     return `This action returns a #${id} member`;
   }
 
-  update(id: number, updateMemberDto: UpdateMemberDto) {
-    return `This action updates a #${id} member`;
+  async update(id: number, updateMemberDto: UpdateMemberDto) {
+    const [updatedMember] = await this.db
+      .update(members)
+      .set({
+        ...updateMemberDto
+      })
+      .where(eq(members.id, id))
+      .returning();
+
+    return updatedMember;
   }
 
   remove(id: number) {
