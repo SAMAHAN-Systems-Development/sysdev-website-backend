@@ -10,14 +10,13 @@ import {
   UseInterceptors,
   UploadedFiles,
   BadRequestException,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { validate } from 'class-validator';
-import { plainToInstance } from 'class-transformer';
 
 @Controller('projects')
 @UseGuards(JwtAuthGuard)
@@ -42,7 +41,7 @@ export class ProjectController {
   @Put(':id')
   @UseInterceptors(FileFieldsInterceptor([{ name: 'images' }]))
   async update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateProjectDto: UpdateProjectDto,
     @UploadedFiles() files: { images?: Express.Multer.File[] },
   ) {
@@ -53,7 +52,7 @@ export class ProjectController {
     return {
       message: 'Project updated successfully',
       data: await this.projectService.update(
-        +id,
+        id,
         updateProjectDto,
         files.images,
       ),
