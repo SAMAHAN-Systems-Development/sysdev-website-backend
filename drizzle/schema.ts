@@ -26,26 +26,26 @@ export const users = pgTable('users', {
   id: serial('id').primaryKey(),
   email: varchar('email').notNull(),
   password: varchar('password').notNull(),
-  modified_at: timestamp('modified_at')
+  modifiedAt: timestamp('modified_at')
     .defaultNow()
     .notNull()
     .$onUpdate(() => new Date()),
-  created_at: timestamp('created_at').defaultNow(),
+  createdAt: timestamp('created_at').defaultNow(),
 });
 
 export const roles = pgTable('roles', {
   id: serial('id').primaryKey(),
   name: varchar('name', { length: 255 }).unique().notNull(),
-  modified_at: timestamp('modified_at')
+  modifiedAt: timestamp('modified_at')
     .defaultNow()
     .notNull()
     .$onUpdate(() => new Date()),
-  created_at: timestamp('created_at').defaultNow(),
+  createdAt: timestamp('created_at').defaultNow(),
   deletedAt: timestamp('deleted_at'),
 });
-export const member_roles = pgTable('member_roles', {
+export const memberRoles = pgTable('member_roles', {
   id: serial('id').primaryKey(),
-  member_id: integer('member_id')
+  memberId: integer('member_id')
     .references(() => members.id)
     .notNull(),
   roleId: integer('role_id')
@@ -64,7 +64,7 @@ export const members = pgTable('members', {
     .defaultNow()
     .notNull()
     .$onUpdate(() => new Date()),
-  created_at: timestamp('created_at').defaultNow(),
+  createdAt: timestamp('created_at').defaultNow(),
   deletedAt: timestamp('deleted_at'),
 });
 
@@ -115,58 +115,58 @@ export const organizations = pgTable('organiztions', {
   name: varchar('name'),
   description: varchar('description'),
 
-  modified_at: timestamp('modified_at')
+  modifiedAt: timestamp('modified_at')
     .defaultNow()
     .notNull()
     .$onUpdate(() => new Date()),
-  created_at: timestamp('created_at').defaultNow(),
+  createdAt: timestamp('created_at').defaultNow(),
   deletedAt: timestamp('deleted_at'),
 });
 
 export const batch = pgTable('batch', {
   id: serial('id').primaryKey(),
-  batch_name: varchar('batch_name'),
+  batchName: varchar('batch_name'),
 
-  modified_at: timestamp('modified_at')
+  modifiedAt: timestamp('modified_at')
     .defaultNow()
     .notNull()
     .$onUpdate(() => new Date()),
-  created_at: timestamp('created_at').defaultNow(),
+  createdAt: timestamp('created_at').defaultNow(),
 });
 
 export const alumni = pgTable('alumni', {
   id: serial('id').primaryKey(),
-  batch_id: integer('batch_id').references(() => batch.id),
+  batchId: integer('batch_id').references(() => batch.id),
   fullname: varchar().notNull(),
 
-  modified_at: timestamp('modified_at')
+  modifiedAt: timestamp('modified_at')
     .defaultNow()
     .notNull()
     .$onUpdate(() => new Date()),
-  created_at: timestamp('created_at').defaultNow(),
+  createdAt: timestamp('created_at').defaultNow(),
 });
 
 export const events = pgTable('event', {
   id: serial('id').primaryKey(),
   name: varchar('name', { length: 255 }).unique().notNull(),
 
-  modified_at: timestamp('modified_at')
+  modifiedAt: timestamp('modified_at')
     .defaultNow()
     .notNull()
     .$onUpdate(() => new Date()),
-  created_at: timestamp('created_at').defaultNow(),
+  createdAt: timestamp('created_at').defaultNow(),
 });
 
 export const blogs = pgTable('blogs', {
   id: serial('id').primaryKey(),
   title: varchar('title').notNull(),
   tag: integer('tag').references(() => events.id),
-  cover_image: varchar('cover_image'),
+  coverImage: varchar('cover_image'),
   link: varchar('link'),
 
-  modified_at: timestamp('modified_at')
+  modifiedAt: timestamp('modified_at')
     .defaultNow()
     .notNull()
     .$onUpdate(() => new Date()),
-  created_at: timestamp('created_at').defaultNow(),
+  createdAt: timestamp('created_at').defaultNow(),
 });
