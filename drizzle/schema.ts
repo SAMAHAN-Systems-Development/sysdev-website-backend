@@ -31,6 +31,7 @@ export const users = pgTable('users', {
     .notNull()
     .$onUpdate(() => new Date()),
   createdAt: timestamp('created_at').defaultNow(),
+  deletedAt: timestamp('deleted_at'),
 });
 
 export const roles = pgTable('roles', {
@@ -51,6 +52,7 @@ export const memberRoles = pgTable('member_roles', {
   roleId: integer('role_id')
     .references(() => roles.id)
     .notNull(),
+  deletedAt: timestamp('deleted_at'),
 });
 
 export const members = pgTable('members', {
@@ -132,6 +134,7 @@ export const batch = pgTable('batch', {
     .notNull()
     .$onUpdate(() => new Date()),
   createdAt: timestamp('created_at').defaultNow(),
+  deletedAt: timestamp('deleted_at'),
 });
 
 export const alumni = pgTable('alumni', {
@@ -144,6 +147,7 @@ export const alumni = pgTable('alumni', {
     .notNull()
     .$onUpdate(() => new Date()),
   createdAt: timestamp('created_at').defaultNow(),
+  deletedAt: timestamp('deleted_at'),
 });
 
 export const events = pgTable('event', {
@@ -155,6 +159,7 @@ export const events = pgTable('event', {
     .notNull()
     .$onUpdate(() => new Date()),
   createdAt: timestamp('created_at').defaultNow(),
+  deletedAt: timestamp('deleted_at'),
 });
 
 export const blogs = pgTable('blogs', {
@@ -169,4 +174,5 @@ export const blogs = pgTable('blogs', {
     .notNull()
     .$onUpdate(() => new Date()),
   createdAt: timestamp('created_at').defaultNow(),
+  deletedAt: timestamp('deleted_at'),
 });
