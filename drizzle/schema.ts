@@ -24,7 +24,7 @@ export const typeTagEnum = pgEnum('type_tag', [
 ]);
 export const users = pgTable('users', {
   id: serial('id').primaryKey(),
-  email: varchar('email').notNull(),
+  email: varchar('email').unique().notNull(),
   password: varchar('password').notNull(),
   modifiedAt: timestamp('modified_at')
     .defaultNow()
@@ -59,7 +59,7 @@ export const members = pgTable('members', {
   id: serial('id').primaryKey(),
   roleId: integer('role_id').references(() => roles.id),
   name: varchar('name', { length: 255 }).notNull(),
-  email: varchar('email', { length: 255 }).notNull(),
+  email: varchar('email', { length: 255 }).unique().notNull(),
   photo: varchar('photo', { length: 2048 }),
   isVisible: boolean('is_visible').default(false),
   modifiedAt: timestamp('modified_at')
