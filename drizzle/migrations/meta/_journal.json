@@ -50,6 +50,20 @@
       "when": 1748531860104,
       "tag": "0006_remove_required_member_on_collaboration_assignments",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1748622079910,
+      "tag": "0007_fix_add_softdelete_to_all_tables",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1748622173488,
+      "tag": "0008_make_email_unique",
+      "breakpoints": true
     }
   ]
 }
