@@ -5,11 +5,6 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import {
-  Inject,
-  Injectable,
-  InternalServerErrorException,
-} from '@nestjs/common';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import {
@@ -68,34 +63,48 @@ export class ProjectService {
   async update(
     id: number,
     updateProjectDto: UpdateProjectDto,
-    images: Express.Multer.File[],
+    images?: Express.Multer.File[],
   ) {
-    try {
-      const uploadResults = await Promise.all(
-        images.map((file) =>
-          this.miniIoService.uploadObject(
-            file,
-            this.configService.get<string>('IMAGE_BUCKET'),
-          ),
-        ),
-      );
+    const project = (
+      await this.db.select().from(projects).where(eq(projects.id, id)).execute()
+    )[0];
 
-      return (
-        await this.db
-          .update(projects)
-          .set({
-            ...updateProjectDto,
-            images: uploadResults.map((file) => file.url),
-          })
-          .where(eq(projects.id, id))
-          .returning()
-      )[0];
-    } catch (error) {
-      throw new InternalServerErrorException('Failed to update project', {
-        cause: error,
-        description: error.message || undefined,
-      });
+    if (!project) {
+      throw new NotFoundException(`Project with id "${id}" does not exist`);
     }
+
+    const unknownImages = updateProjectDto.images.filter(
+      (image) => !project.images.includes(image),
+    );
+
+    if (unknownImages.length > 0) {
+      throw new BadRequestException(
+        'Payload images list contains unknown links',
+      );
+    }
+
+    const uploadedUrls = images?.length
+      ? await Promise.all(
+          images.map((file) =>
+            this.miniIoService.uploadObject(
+              file,
+              this.configService.get<string>('IMAGE_BUCKET'),
+            ),
+          ),
+        ).then((results) => results.map((r) => r.url))
+      : [];
+
+    const [updatedProject] = await this.db
+      .update(projects)
+      .set({
+        ...updateProjectDto,
+        dateLaunched: new Date(updateProjectDto.dateLaunched),
+        images: updateProjectDto.images.concat(uploadedUrls),
+      })
+      .where(eq(projects.id, id))
+      .returning();
+
+    return updatedProject;
   }
 
   async remove(id: number) {

@@ -13,10 +13,8 @@ import {
   UploadedFiles,
   BadRequestException,
   ParseIntPipe,
-  UseInterceptors,
-  UploadedFiles,
-  BadRequestException,
-  ParseIntPipe,
+  InternalServerErrorException,
+  HttpException,
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
@@ -24,7 +22,6 @@ import { UpdateProjectDto } from './dto/update-project.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { ProjectExistsPipe } from './middlewares/projectExists.middleware';
-import { FileFieldsInterceptor } from '@nestjs/platform-express';
 
 @Controller('/api/projects')
 @Controller('projects')
@@ -65,20 +62,31 @@ export class ProjectController {
   }
 
   @Put(':id')
-  @UseInterceptors(FileFieldsInterceptor([{ name: 'images' }]))
+  @UseInterceptors(FileFieldsInterceptor([{ name: 'newImages' }]))
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateProjectDto: UpdateProjectDto,
-    @UploadedFiles() files: { images?: Express.Multer.File[] },
+    @UploadedFiles() files: { newImages?: Express.Multer.File[] },
   ) {
-    return {
-      message: 'Project updated successfully',
-      data: await this.projectService.update(
-        id,
-        updateProjectDto,
-        files.images,
-      ),
-    };
+    try {
+      return {
+        message: 'Project updated successfully',
+        data: await this.projectService.update(
+          id,
+          updateProjectDto,
+          files.newImages,
+        ),
+      };
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+
+      throw new InternalServerErrorException('Failed to update project', {
+        cause: error,
+        description: error.message,
+      });
+    }
   }
 
   @Delete(':id')
