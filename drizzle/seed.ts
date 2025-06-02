@@ -113,7 +113,7 @@ export async function seedBatches() {
   logger.log('Seeding batches...');
   await db
     .insert(batch)
-    .values([{ batch_name: 'Batch Alpha' }, { batch_name: 'Batch Beta' }]);
+    .values([{ batchName: 'Batch Alpha' }, { batchName: 'Batch Beta' }]);
   logger.log('✅ Batches seeded');
 }
 
@@ -124,11 +124,11 @@ export async function seedAlumni() {
 
   await db.insert(alumni).values([
     {
-      batch_id: batches[0].id,
+      batchId: batches[0].id,
       fullname: faker.person.fullName(),
     },
     {
-      batch_id: batches[1].id,
+      batchId: batches[1].id,
       fullname: faker.person.fullName(),
     },
   ]);
@@ -152,13 +152,13 @@ export async function seedBlogs() {
     {
       title: 'Celebrating Founders Day',
       tag: eventss[0].id,
-      cover_image: faker.image.urlPicsumPhotos(),
+      coverImage: faker.image.urlPicsumPhotos(),
       link: faker.internet.url(),
     },
     {
       title: 'Hackathon Highlights',
       tag: eventss[1].id,
-      cover_image: faker.image.urlPicsumPhotos(),
+      coverImage: faker.image.urlPicsumPhotos(),
       link: faker.internet.url(),
     },
   ]);
