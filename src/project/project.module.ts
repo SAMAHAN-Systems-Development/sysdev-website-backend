@@ -2,10 +2,11 @@ import { Module } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { ProjectController } from './project.controller';
 import { DatabaseModule } from 'src/database/database.module';
+import { MinioService } from 'src/minio/minio.service';
 
 @Module({
   imports: [DatabaseModule],
   controllers: [ProjectController],
-  providers: [ProjectService],
+  providers: [ProjectService, MinioService],
 })
 export class ProjectModule {}
