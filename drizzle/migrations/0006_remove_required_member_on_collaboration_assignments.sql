@@ -1,0 +1,1 @@
+ALTER TABLE "collaborator_assigments" ALTER COLUMN "member_id" DROP NOT NULL;

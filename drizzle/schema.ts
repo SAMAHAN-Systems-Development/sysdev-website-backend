@@ -101,12 +101,10 @@ export const collaboratorAssignments = pgTable('collaborator_assigments', {
   collaboratorId: integer('collaborator_id')
     .references(() => collaborator.id)
     .notNull(),
-  memberId: integer('member_id')
-    .references(() => members.id)
-    .notNull(),
   roleId: integer('role_id')
     .references(() => roles.id)
     .notNull(),
+  memberId: integer('member_id').references(() => members.id),
   organizationId: integer('organization_id').references(() => organizations.id),
   createdAt: timestamp('created_at').defaultNow(),
   deletedAt: timestamp('deleted_at'),
