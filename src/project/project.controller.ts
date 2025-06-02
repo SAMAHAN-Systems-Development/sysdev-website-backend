@@ -22,7 +22,7 @@ import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { ProjectExistsPipe } from './middlewares/projectExists.middleware';
 
 @Controller('/api/projects')
-// @UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 

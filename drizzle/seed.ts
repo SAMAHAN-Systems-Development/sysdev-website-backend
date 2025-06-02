@@ -12,6 +12,8 @@ import {
   blogs,
   users,
   memberRoles,
+  organizations,
+  collaboratorAssignments,
 } from './schema'; // Adjust path as needed
 import { faker } from '@faker-js/faker';
 import { Logger } from '@nestjs/common';
@@ -124,7 +126,62 @@ export async function seedCollaborators() {
   ]);
   logger.log('✅ Collaborators seeded');
 }
+export async function seedCollaboratorAssignment() {
+  logger.log('Seeding collaborator Assignments');
+  const role = await db.select().from(roles);
+  const orgs = await db.select().from(organizations);
+  const member = await db.select().from(members);
+  const collaborators = await db.select().from(collaborator);
+  await db.insert(collaboratorAssignments).values([
+    {
+      collaboratorId: collaborators[0].id,
+      roleId: role[0].id,
+      organizationId: orgs[0].id,
+    },
+    {
+      collaboratorId: collaborators[0].id,
+      roleId: role[0].id,
+      organizationId: orgs[1].id,
+    },
 
+    {
+      collaboratorId: collaborators[0].id,
+      roleId: role[1].id,
+      organizationId: orgs[2].id,
+    },
+    {
+      collaboratorId: collaborators[0].id,
+      roleId: role[1].id,
+      organizationId: orgs[3].id,
+    },
+    {
+      collaboratorId: collaborators[0].id,
+      roleId: role[1].id,
+      organizationId: orgs[4].id,
+    },
+    {
+      collaboratorId: collaborators[0].id,
+      roleId: role[0].id,
+      memberId: member[0].id,
+    },
+    {
+      collaboratorId: collaborators[0].id,
+      roleId: role[0].id,
+      memberId: member[1].id,
+    },
+  ]);
+  logger.log('✅ Collaborator Assignments seeded');
+}
+export async function seedOrganiztions() {
+  logger.log('Seeding Organiztions');
+  const data = Array.from({ length: 5 }).map(() => ({
+    name: faker.company.name(),
+    description: faker.company.catchPhrase(),
+  }));
+  await db.insert(organizations).values(data);
+
+  logger.log('✅ Organiztions seeded');
+}
 export async function seedBatches() {
   logger.log('Seeding batches...');
   await db
@@ -215,6 +272,8 @@ async function main() {
     await seedMembers();
     await seedMemberRoles();
     await seedCollaborators();
+    await seedOrganiztions();
+    await seedCollaboratorAssignment();
     await seedBatches();
     await seedAlumni();
     await seedEvents();
