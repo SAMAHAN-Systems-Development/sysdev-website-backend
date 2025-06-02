@@ -45,10 +45,6 @@ export class ProjectController {
     @Body() updateProjectDto: UpdateProjectDto,
     @UploadedFiles() files: { images?: Express.Multer.File[] },
   ) {
-    if (!files.images || files.images.length == 0) {
-      throw new BadRequestException('At least one image file is required');
-    }
-
     return {
       message: 'Project updated successfully',
       data: await this.projectService.update(
