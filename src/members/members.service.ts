@@ -140,7 +140,6 @@ export class MembersService {
     updateMemberDto: UpdateMemberDto,
     photo: Express.Multer.File | undefined,
   ) {
-    console.log(updateMemberDto.roleIds);
     return this.db.transaction(async (tx) => {
       try {
         let photoUrl: string | undefined = undefined;

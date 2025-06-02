@@ -12,7 +12,7 @@ import {
   UseInterceptors,
   UploadedFile,
   ParseIntPipe,
-  Patch,
+  Put,
 } from '@nestjs/common';
 import { MembersService } from './members.service';
 import { CreateMemberDto } from './dto/create-member.dto';
@@ -47,14 +47,13 @@ export class MembersController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Patch(':id')
+  @Put(':id')
   @UseInterceptors(FileInterceptor('photo'))
   update(
     @Param('id', ParseIntPipe, MemberExistsPipe) id: number,
     @UploadedFile() photo: Express.Multer.File,
     @Body() updateMemberDto: UpdateMemberDto,
   ) {
-    console.log(updateMemberDto.name);
     return this.membersService.update(id, updateMemberDto, photo);
   }
 
