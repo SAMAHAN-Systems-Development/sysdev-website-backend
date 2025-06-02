@@ -1,4 +1,5 @@
 import {
+  DeleteObjectCommand,
   GetObjectCommand,
   PutObjectCommand,
   S3Client,
@@ -52,6 +53,24 @@ export class MinioService {
         Key: key,
       }),
       { expiresIn: 3600 },
+    );
+  }
+  async deleteObjectFromUrl(url: string): Promise<void> {
+    const minioPublicUrl = this.configService.get<string>('MINIO_PUBLIC_URL');
+
+    if (!url.startsWith(minioPublicUrl)) {
+      throw new Error('Invalid MinIO URL');
+    }
+
+    const relativePath = url.replace(`${minioPublicUrl}/`, '');
+    const [bucket, ...keyParts] = relativePath.split('/');
+    const key = keyParts.join('/');
+
+    await this.s3.send(
+      new DeleteObjectCommand({
+        Bucket: bucket,
+        Key: key,
+      }),
     );
   }
 }
