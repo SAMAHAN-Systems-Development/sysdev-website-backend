@@ -12,7 +12,6 @@ import {
   UseInterceptors,
   UploadedFiles,
   BadRequestException,
-
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';

@@ -1,17 +1,20 @@
+import { Type } from 'class-transformer';
 import {
+  IsArray,
   IsBoolean,
   IsEmail,
   IsInt,
   IsNotEmpty,
   IsOptional,
   IsString,
-  IsUrl,
   MaxLength,
 } from 'class-validator';
 
 export class CreateMemberDto {
-  @IsInt()
-  roleId: number;
+  @IsArray()
+  @IsInt({ each: true })
+  @Type(() => Number)
+  roleIds: number[];
 
   @IsNotEmpty()
   @IsString()
@@ -19,15 +22,12 @@ export class CreateMemberDto {
   name: string;
 
   @IsEmail()
+  @IsNotEmpty()
   @MaxLength(255)
   email: string;
 
   @IsOptional()
-  @IsUrl()
-  @MaxLength(2048)
-  photo?: string;
-
-  @IsOptional()
   @IsBoolean()
+  @Type(() => Boolean)
   isVisible?: boolean;
 }

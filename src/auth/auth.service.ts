@@ -24,13 +24,13 @@ export class AuthService {
     private readonly db: Database,
   ) {}
 
-  async validateUser({ username, password }: AuthPayloadDto) {
+  async validateUser({ email, password }: AuthPayloadDto) {
     let selectedUser;
     try {
       selectedUser = await this.db
         .select()
         .from(users)
-        .where(eq(users.email, username));
+        .where(eq(users.email, email));
     } catch (error) {
       if (error instanceof NotFoundException) {
         throw new UnauthorizedException('Invalid credentials');
