@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   UseGuards,
+  HttpCode,
+  HttpStatus,
   Query,
 } from '@nestjs/common';
 import { MembersService } from './members.service';
@@ -19,6 +21,7 @@ export class MembersController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
+  @HttpCode(HttpStatus.CREATED)
   create(@Body() createMemberDto: CreateMemberDto) {
     return this.membersService.create(createMemberDto);
   }
