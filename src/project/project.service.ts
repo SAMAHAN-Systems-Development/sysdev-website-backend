@@ -15,12 +15,13 @@ import {
   collaborator, 
   collaboratorAssignments, 
   members, 
+  organizations, 
   projects, 
   roles 
 } from 'drizzle/schema';
 import { MinioService } from 'src/minio/minio.service';
 import { ConfigService } from '@nestjs/config';
-import { and, eq, isNull } from 'drizzle-orm';
+import { and, eq, inArray, isNull } from 'drizzle-orm';
 
 @Injectable()
 export class ProjectService {
@@ -78,79 +79,70 @@ export class ProjectService {
   }
 
   async findOne(id: number) {
-  const [proj] = await this.db
-    .select()
-    .from(projects)
-    .where(eq(projects.id, id))
-    .limit(1);
+    const [proj] = await this.db
+      .select()
+      .from(projects)
+      .where(eq(projects.id, id))
+      .limit(1);
 
-  if (!proj) {
-    throw new NotFoundException(`Project with ID ${id} not found.`);
-  }
+    if (!proj) {
+      throw new NotFoundException(`Project with ID ${id} not found.`);
+    }
 
-  const projectCollaborators = await this.db
-    .select()
-    .from(collaborator)
-    .where(eq(collaborator.projectId, id));
+    const collaborators = await this.db
+      .select()
+      .from(collaborator)
+      .where(eq(collaborator.projectId, id));
 
-  const collaboratorsWithMembersByRole = await Promise.all(
-    projectCollaborators.map(async (collab) => {
-      const assignments = await this.db
-        .select()
-        .from(collaboratorAssignments)
-        .where(eq(collaboratorAssignments.collaboratorId, collab.id));
+    const collaboratorIds = collaborators.map(c => c.id);
 
-      const membersByRole: Record<string, any[]> = {};
+    const assignments = await this.db
+      .select()
+      .from(collaboratorAssignments)
+      .where(inArray(collaboratorAssignments.collaboratorId, collaboratorIds));
 
-      for (const assign of assignments) {
-        const [[member], [role]] = await Promise.all([
-          this.db
-            .select()
-            .from(members)
-            .where(eq(members.id, assign.memberId))
-            .limit(1),
+    const roleIds = assignments.map(a => a.roleId);
+    const memberIds = assignments.filter(a => a.memberId).map(a => a.memberId);
+    const organizationIds = assignments.filter(a => a.organizationId).map(a => a.organizationId);
 
-          this.db
-            .select()
-            .from(roles)
-            .where(eq(roles.id, assign.roleId))
-            .limit(1),
-        ]);
+    const [rolesList, membersList, orgsList] = await Promise.all([
+      this.db.select().from(roles).where(inArray(roles.id, roleIds)),
+      this.db.select().from(members).where(inArray(members.id, memberIds)),
+      this.db.select().from(organizations).where(inArray(organizations.id, organizationIds)),
+    ]);
 
-        const roleName = role?.name ?? 'Unknown';
+    const roleMap = Object.fromEntries(rolesList.map(r => [r.id, r.name]));
+    const memberMap = Object.fromEntries(membersList.map(m => [m.id, m]));
+    const orgMap = Object.fromEntries(orgsList.map(o => [o.id, o]));
 
-        if (!membersByRole[roleName]) {
-          membersByRole[roleName] = [];
-        }
+    const collaboratorsByRole: Record<string, { members: any[], organizations: any[] }> = {};
 
-        membersByRole[roleName].push(member);
+    for (const assign of assignments) {
+      const roleName = roleMap[assign.roleId] ?? 'Unknown';
+      if (!collaboratorsByRole[roleName]) {
+        collaboratorsByRole[roleName] = { members: [], organizations: [] };
       }
 
-      return {
-        collaborator: collab,
-        membersByRole,
-      };
-    })
-  );
+      if (assign.memberId) {
+        collaboratorsByRole[roleName].members.push(memberMap[assign.memberId]);
+      } else if (assign.organizationId) {
+        collaboratorsByRole[roleName].organizations.push(orgMap[assign.organizationId]);
+      }
+    }
 
-  const imageObjects = (proj.images || []).map((url: string) => ({
-    url,
-    caption: null,
-  }));
-
-  return {
-    title: proj.title,
-    dateLaunched: proj.dateLaunched,
-    briefDesc: proj.briefDesc,
-    fullDesc: proj.fullDesc,
-    collaborators: collaboratorsWithMembersByRole,
-    images: imageObjects,
-    links: proj.links,
-    status: proj.status,
-    type: proj.type,
-    featured: proj.featured,
-  };
-}
+    return {
+      title: proj.title,
+      dateLaunched: proj.dateLaunched,
+      briefDesc: proj.briefDesc,
+      fullDesc: proj.fullDesc,
+      collaboratorsByRole,
+      images: (proj.images || []).map((url: string) => ({ url, caption: null })),
+      links: proj.links,
+      status: proj.status,
+      type: proj.type,
+      featured: proj.featured,
+    };
+  }
 
   update(id: number, updateProjectDto: UpdateProjectDto) {
     return `This action updates a #${id} project`;
