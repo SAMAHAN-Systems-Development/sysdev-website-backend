@@ -29,42 +29,27 @@ export class ProjectService {
     createProjectDto: CreateProjectDto,
     imageFiles: Express.Multer.File[],
   ) {
-    const bucketName = this.configService.get<string>('IMAGE_BUCKET');
-    const uploadResults = await Promise.all(
-      imageFiles.map((file) =>
-        this.miniIoService.uploadObject(file, bucketName),
-      ),
-    );
+    return this.db.transaction(async (tx) => {
+      const bucketName = this.configService.get<string>('IMAGE_BUCKET');
+      const uploadResults = await Promise.all(
+        imageFiles.map((file) =>
+          this.miniIoService.uploadObject(file, bucketName),
+        ),
+      );
 
-    const imageUrls = uploadResults.map((res) => res.url);
+      const imageUrls = uploadResults.map((res) => res.url);
 
-    const {
-      title,
-      briefDesc,
-      fullDesc,
-      dateLaunched,
-      links,
-      status,
-      type,
-      featured = false,
-    } = createProjectDto;
+      const inserted = await tx
+        .insert(projects)
+        .values({
+          ...createProjectDto,
+          dateLaunched: new Date(createProjectDto.dateLaunched),
+          images: imageUrls,
+        })
+        .returning();
 
-    const inserted = await this.db
-      .insert(projects)
-      .values({
-        title,
-        briefDesc,
-        fullDesc,
-        dateLaunched: new Date(dateLaunched),
-        links: links ?? null,
-        images: imageUrls,
-        status,
-        type,
-        featured,
-      })
-      .returning();
-
-    return inserted[0];
+      return inserted[0];
+    });
   }
 
   findAll() {
@@ -82,30 +67,16 @@ export class ProjectService {
   async remove(id: number) {
     try {
       // Soft-delete the project if not already deleted
-      const [updatedProject] = await this.db
+      await this.db
         .update(projects)
         .set({ deletedAt: new Date() })
         .where(and(eq(projects.id, id), isNull(projects.deletedAt)))
         .returning();
 
-      // If nothing was deleted, query again to find out why
-      if (!updatedProject) {
-        const [existing] = await this.db
-          .select()
-          .from(projects)
-          .where(eq(projects.id, id))
-          .limit(1);
-
-        if (!existing) {
-          throw new NotFoundException(`Project with ID ${id} not found.`);
-        } else {
-          throw new BadRequestException(
-            `Project with ID ${id} is already deleted.`,
-          );
-        }
-      }
-
-      return updatedProject;
+      return {
+        statusCode: 200,
+        message: `Successfully deleted project with ID ${id}`,
+      };
     } catch (error) {
       if (
         error instanceof BadRequestException ||

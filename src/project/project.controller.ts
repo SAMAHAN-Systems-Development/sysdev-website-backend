@@ -12,12 +12,14 @@ import {
   UseInterceptors,
   UploadedFiles,
   BadRequestException,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { ProjectExistsPipe } from './middlewares/projectExists.middleware';
 
 @Controller('/api/projects')
 @UseGuards(JwtAuthGuard)
@@ -52,18 +54,21 @@ export class ProjectController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseIntPipe, ProjectExistsPipe) id: string) {
     return this.projectService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {
+  update(
+    @Param('id', ParseIntPipe, ProjectExistsPipe) id: string,
+    @Body() updateProjectDto: UpdateProjectDto,
+  ) {
     return this.projectService.update(+id, updateProjectDto);
   }
 
   @Delete(':id')
   @HttpCode(HttpStatus.OK)
-  remove(@Param('id') id: string) {
+  remove(@Param('id', ParseIntPipe, ProjectExistsPipe) id: string) {
     return this.projectService.remove(+id);
   }
 }

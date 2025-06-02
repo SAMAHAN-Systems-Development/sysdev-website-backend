@@ -28,7 +28,6 @@ export class MinioService {
     bucket: string,
     key?: string,
   ): Promise<{ key: string; url: string }> {
-    console.log(file);
     const objectKey = key || `${Date.now()}-${file.originalname}`;
 
     await this.s3.send(
