@@ -24,10 +24,28 @@ export class MembersService {
     return 'This action adds a new member';
   }
 
-  findAll() {
-    return `This action returns all members`;
+  async findAll(roleName?: string) {
+    let condition = eq(members.isVisible, true);
+  
+    if (roleName) {
+      condition = and(condition, eq(roles.name, roleName));
+    }
+  
+    const query = await this.db
+      .select({
+        name: members.name,
+        email: members.email,
+        role: roles.name,
+        photo: members.photo,
+      })
+      .from(members)
+      .leftJoin(roles, eq(members.roleId, roles.id))
+      .where(condition)
+      .orderBy(members.name);
+  
+    return query;
   }
-
+          
   findOne(id: number) {
     return `This action returns a #${id} member`;
   }
