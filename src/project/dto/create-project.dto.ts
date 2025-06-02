@@ -10,14 +10,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { statusTagEnum, typeTagEnum } from 'drizzle/schema';
-
-class ProjectLinkDto {
-  @IsString()
-  name: string;
-
-  @IsString()
-  link: string;
-}
+import { ProjectLinkDto } from './project-link.dto';
 
 export class CreateProjectDto {
   @IsString()
