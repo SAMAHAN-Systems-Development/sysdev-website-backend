@@ -58,8 +58,8 @@ export const members = pgTable('members', {
   roleId: integer('role_id').references(() => roles.id),
   name: varchar('name', { length: 255 }).notNull(),
   email: varchar('email', { length: 255 }).notNull(),
-  photo: varchar('photo', { length: 2048 }).notNull(),
-  isValid: boolean('is_valid').default(false),
+  photo: varchar('photo', { length: 2048 }),
+  isVisible: boolean('is_visible').default(false),
   modifiedAt: timestamp('modified_at')
     .defaultNow()
     .notNull()
@@ -101,12 +101,10 @@ export const collaboratorAssignments = pgTable('collaborator_assigments', {
   collaboratorId: integer('collaborator_id')
     .references(() => collaborator.id)
     .notNull(),
-  memberId: integer('member_id')
-    .references(() => members.id)
-    .notNull(),
   roleId: integer('role_id')
     .references(() => roles.id)
     .notNull(),
+  memberId: integer('member_id').references(() => members.id),
   organizationId: integer('organization_id').references(() => organizations.id),
   createdAt: timestamp('created_at').defaultNow(),
   deletedAt: timestamp('deleted_at'),

@@ -5,12 +5,13 @@ import {
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class MinioService {
   private s3: S3Client;
 
-  constructor() {
+  constructor(private readonly configService: ConfigService) {
     this.s3 = new S3Client({
       region: 'asia',
       endpoint: 'http://localhost:9000',
@@ -37,15 +38,9 @@ export class MinioService {
         ContentType: file.mimetype,
       }),
     );
+    const minioPublicUrl = this.configService.get<string>('MINIO_PUBLIC_URL');
 
-    const url = await getSignedUrl(
-      this.s3,
-      new GetObjectCommand({
-        Bucket: bucket,
-        Key: objectKey,
-      }),
-      { expiresIn: 3600 },
-    );
+    const url = `${minioPublicUrl}/${bucket}/${objectKey}`;
 
     return { key: objectKey, url };
   }

@@ -29,6 +29,27 @@
       "when": 1748362732489,
       "tag": "0003_major_change_structure",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1748440182137,
+      "tag": "0004_fix_member_typo",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1748447434140,
+      "tag": "0005_remove_required_member_photo",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1748531860104,
+      "tag": "0006_remove_required_member_on_collaboration_assignments",
+      "breakpoints": true
     }
   ]
 }

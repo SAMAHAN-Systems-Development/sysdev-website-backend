@@ -1,4 +1,10 @@
-import { Inject, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import {
@@ -8,6 +14,7 @@ import {
 import { projects } from 'drizzle/schema';
 import { MinioService } from 'src/minio/minio.service';
 import { ConfigService } from '@nestjs/config';
+import { and, eq, isNull } from 'drizzle-orm';
 
 @Injectable()
 export class ProjectService {
@@ -72,7 +79,45 @@ export class ProjectService {
     return `This action updates a #${id} project`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} project`;
+  async remove(id: number) {
+    try {
+      // Soft-delete the project if not already deleted
+      const [updatedProject] = await this.db
+        .update(projects)
+        .set({ deletedAt: new Date() })
+        .where(and(eq(projects.id, id), isNull(projects.deletedAt)))
+        .returning();
+
+      // If nothing was deleted, query again to find out why
+      if (!updatedProject) {
+        const [existing] = await this.db
+          .select()
+          .from(projects)
+          .where(eq(projects.id, id))
+          .limit(1);
+
+        if (!existing) {
+          throw new NotFoundException(`Project with ID ${id} not found.`);
+        } else {
+          throw new BadRequestException(
+            `Project with ID ${id} is already deleted.`,
+          );
+        }
+      }
+
+      return updatedProject;
+    } catch (error) {
+      if (
+        error instanceof BadRequestException ||
+        error instanceof NotFoundException
+      ) {
+        // Re-throw validation and not found errors as is
+        throw error;
+      }
+      console.error(`Failed to delete project ID ${id}:`, error);
+      throw new InternalServerErrorException(
+        `Failed to delete project ID ${id}.`,
+      );
+    }
   }
 }
