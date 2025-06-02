@@ -58,7 +58,7 @@ export const memberRoles = pgTable('member_roles', {
 export const members = pgTable('members', {
   id: serial('id').primaryKey(),
   name: varchar('name', { length: 255 }).notNull(),
-  email: varchar('email', { length: 255 }).unique().notNull(),
+  email: varchar('email', { length: 255 }).notNull(),
   photo: varchar('photo', { length: 2048 }),
   isVisible: boolean('is_visible').default(false),
   modifiedAt: timestamp('modified_at')

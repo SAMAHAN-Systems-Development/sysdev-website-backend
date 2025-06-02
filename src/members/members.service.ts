@@ -105,7 +105,6 @@ export class MembersService {
       .from(members)
       .where(and(...condition))
       .orderBy(members.name);
-    console.log(result);
     const rolesByMemberId = await this.getRolesByMemberId();
 
     const filteredResult = result

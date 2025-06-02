@@ -9,6 +9,7 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
+import { IsEmailExists } from '../decorators/IsEmailExists.decorator';
 
 export class CreateMemberDto {
   @IsArray()
@@ -24,6 +25,7 @@ export class CreateMemberDto {
   @IsEmail()
   @IsNotEmpty()
   @MaxLength(255)
+  @IsEmailExists()
   email: string;
 
   @IsOptional()

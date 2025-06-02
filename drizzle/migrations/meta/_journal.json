@@ -71,6 +71,13 @@
       "when": 1748828217422,
       "tag": "0009_member_roleID_removed",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1748869216789,
+      "tag": "0010_remove_unique_email_in_schema",
+      "breakpoints": true
     }
   ]
 }
