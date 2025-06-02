@@ -8,6 +8,6 @@ import { ConfigService } from '@nestjs/config';
 @Module({
   imports: [DatabaseModule],
   controllers: [ProjectController],
-  providers: [ProjectService, MinioService, ConfigService],
+  providers: [ProjectService, MinioService, ConfigService, MinioService],
 })
 export class ProjectModule {}

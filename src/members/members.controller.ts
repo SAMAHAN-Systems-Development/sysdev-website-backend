@@ -3,42 +3,63 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   UseGuards,
+  HttpCode,
+  HttpStatus,
+  Query,
+  UseInterceptors,
+  UploadedFile,
+  ParseIntPipe,
+  Put,
 } from '@nestjs/common';
 import { MembersService } from './members.service';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
-@UseGuards(JwtAuthGuard)
-@Controller('members')
+import { FileInterceptor } from '@nestjs/platform-express';
+import { MemberExistsPipe } from './middleware/memberExisits.middleware';
+@Controller('/api/members')
 export class MembersController {
   constructor(private readonly membersService: MembersService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() createMemberDto: CreateMemberDto) {
-    return this.membersService.create(createMemberDto);
+  @HttpCode(HttpStatus.CREATED)
+  @UseInterceptors(FileInterceptor('photo'))
+  create(
+    @UploadedFile() photo: Express.Multer.File,
+    @Body() createMemberDto: CreateMemberDto,
+  ) {
+    return this.membersService.create(createMemberDto, photo);
   }
 
   @Get()
-  findAll() {
-    return this.membersService.findAll();
+  findAll(@Query('role') role?: number) {
+    return this.membersService.findAll(role);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseIntPipe, MemberExistsPipe) id: string) {
     return this.membersService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMemberDto: UpdateMemberDto) {
-    return this.membersService.update(+id, updateMemberDto);
+  @UseGuards(JwtAuthGuard)
+  @Put(':id')
+  @UseInterceptors(FileInterceptor('photo'))
+  update(
+    @Param('id', ParseIntPipe, MemberExistsPipe) id: number,
+    @UploadedFile() photo: Express.Multer.File,
+    @Body() updateMemberDto: UpdateMemberDto,
+  ) {
+    return this.membersService.update(id, updateMemberDto, photo);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id', ParseIntPipe, MemberExistsPipe) id: string) {
     return this.membersService.remove(+id);
   }
 }

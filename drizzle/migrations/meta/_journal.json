@@ -36,6 +36,41 @@
       "when": 1748440182137,
       "tag": "0004_fix_member_typo",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1748447434140,
+      "tag": "0005_remove_required_member_photo",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1748531860104,
+      "tag": "0006_remove_required_member_on_collaboration_assignments",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1748622079910,
+      "tag": "0007_fix_add_softdelete_to_all_tables",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1748622173488,
+      "tag": "0008_make_email_unique",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1748828217422,
+      "tag": "0009_member_roleID_removed",
+      "breakpoints": true
     }
   ]
 }
