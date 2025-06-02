@@ -64,6 +64,13 @@
       "when": 1748622173488,
       "tag": "0008_make_email_unique",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1748828217422,
+      "tag": "0009_member_roleID_removed",
+      "breakpoints": true
     }
   ]
 }

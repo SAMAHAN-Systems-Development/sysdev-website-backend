@@ -57,7 +57,6 @@ export const memberRoles = pgTable('member_roles', {
 
 export const members = pgTable('members', {
   id: serial('id').primaryKey(),
-  roleId: integer('role_id').references(() => roles.id),
   name: varchar('name', { length: 255 }).notNull(),
   email: varchar('email', { length: 255 }).unique().notNull(),
   photo: varchar('photo', { length: 2048 }),
@@ -77,7 +76,7 @@ export const projects = pgTable('projects', {
   fullDesc: text('full_desc').notNull(),
   dateLaunched: timestamp('date_launched').notNull(),
   links: jsonb('links').$type<{ name: string; link: string }[]>(),
-  images: varchar('images', { length: 2048 }).array().notNull(),
+  images: varchar('images', { length: 2048 }).array(),
   status: statusTagEnum('status').notNull(),
   type: typeTagEnum('type').notNull(),
   featured: boolean('featured').default(false).notNull(),
