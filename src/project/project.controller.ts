@@ -7,13 +7,20 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
+  ParseBoolPipe,
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { statusTagEnum, typeTagEnum } from 'drizzle/schema';
 
-@Controller('project')
+
+type StatusTag = typeof statusTagEnum.enumValues[number];
+type TypeTag = typeof typeTagEnum.enumValues[number];
+
+@Controller('projects')
 @UseGuards(JwtAuthGuard)
 export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
@@ -24,8 +31,21 @@ export class ProjectController {
   }
 
   @Get()
-  findAll() {
-    return this.projectService.findAll();
+  async findAll(
+    @Query('sort') sortBy: 'yearDesc' | 'yearAsc' = 'yearDesc', 
+    @Query('featured', new ParseBoolPipe({ optional: true })) showFeaturedOnly: boolean = false, 
+    @Query('status') status?: StatusTag,
+    @Query('type') type?: TypeTag,
+  ) {
+
+    const projects = await this.projectService.findAll(
+      sortBy,
+      showFeaturedOnly,
+      status,
+      type,
+    );
+
+    return projects;
   }
 
   @Get(':id')

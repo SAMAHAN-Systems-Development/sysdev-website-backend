@@ -5,7 +5,11 @@ import {
   Database,
   DATABASE_CONNECTION,
 } from 'src/database/database-connection';
-import { projects } from 'drizzle/schema';
+import { projects, statusTagEnum, typeTagEnum } from 'drizzle/schema';
+import { desc, asc, eq, and } from 'drizzle-orm';
+
+type StatusTag = typeof statusTagEnum.enumValues[number];
+type TypeTag = typeof typeTagEnum.enumValues[number];
 
 @Injectable()
 export class ProjectService {
@@ -17,8 +21,28 @@ export class ProjectService {
     return 'This action adds a new project';
   }
 
-  findAll() {
-    return this.db.select().from(projects);
+  async findAll(
+    sortBy: 'yearAsc' | 'yearDesc', 
+    showFeaturedOnly: boolean, 
+    status?: StatusTag, 
+    type?: TypeTag
+  ) {
+    const query = await this.db
+      .select()
+      .from(projects)
+      .where(
+        and(
+          status ? eq(projects.status, status) : undefined,
+          type ? eq(projects.type, type) : undefined,
+          showFeaturedOnly ? eq(projects.featured, true) : undefined
+        )
+      )
+      .orderBy(
+        desc(projects.featured), 
+        sortBy === "yearDesc" ? desc(projects.dateLaunched) : asc(projects.dateLaunched), 
+      );
+      
+    return query;
   }
 
   findOne(id: number) {
