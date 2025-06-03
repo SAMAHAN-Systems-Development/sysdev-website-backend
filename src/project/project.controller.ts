@@ -8,7 +8,10 @@ import {
   Delete,
   UseGuards,
   Query,
+  DefaultValuePipe,
   ParseBoolPipe,
+  ParseIntPipe,
+  BadRequestException 
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
@@ -33,16 +36,28 @@ export class ProjectController {
   @Get()
   async findAll(
     @Query('sort') sortBy: 'yearDesc' | 'yearAsc' = 'yearDesc', 
-    @Query('featured', new ParseBoolPipe({ optional: true })) showFeaturedOnly: boolean = false, 
     @Query('status') status?: StatusTag,
     @Query('type') type?: TypeTag,
+    @Query('featured', new DefaultValuePipe(false), new ParseBoolPipe()) showFeaturedOnly?: boolean, 
+    @Query('page', new DefaultValuePipe(1), new ParseIntPipe()) page?: number,
+    @Query('limit', new DefaultValuePipe(10), new ParseIntPipe()) limit?: number,
   ) {
+
+    if (page < 1) {
+      throw new BadRequestException('Page must be greater than 0');
+    }
+    
+    if (limit < 1 || limit > 100) {
+      throw new BadRequestException('Limit must be between 1 and 100');
+    }
 
     const projects = await this.projectService.findAll(
       sortBy,
-      showFeaturedOnly,
       status,
       type,
+      showFeaturedOnly,
+      page,
+      limit,
     );
 
     return projects;

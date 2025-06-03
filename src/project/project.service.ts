@@ -23,10 +23,14 @@ export class ProjectService {
 
   async findAll(
     sortBy: 'yearAsc' | 'yearDesc', 
-    showFeaturedOnly: boolean, 
     status?: StatusTag, 
-    type?: TypeTag
-  ) {
+    type?: TypeTag,
+    showFeaturedOnly?: boolean, 
+    page?: number,
+    limit?: number,
+  ) { 
+    const skip = (page - 1) * limit;
+
     const query = await this.db
       .select()
       .from(projects)
@@ -40,8 +44,11 @@ export class ProjectService {
       .orderBy(
         desc(projects.featured), 
         sortBy === "yearDesc" ? desc(projects.dateLaunched) : asc(projects.dateLaunched), 
-      );
-      
+        asc(projects.id) //to ensure consistent pagination
+      )
+      .limit(limit)
+      .offset(skip);
+
     return query;
   }
 
