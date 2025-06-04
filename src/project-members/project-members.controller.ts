@@ -12,6 +12,8 @@ import { ProjectMembersService } from './project-members.service';
 import { CreateProjectMemberDto } from './dto/create-project-member.dto';
 import { UpdateProjectMemberDto } from './dto/update-project-member.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('ProjectMembers')
 @UseGuards(JwtAuthGuard)
 @Controller('api/project-members')
 export class ProjectMembersController {

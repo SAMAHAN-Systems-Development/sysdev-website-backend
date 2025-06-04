@@ -26,10 +26,11 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { statusTagEnum, typeTagEnum } from 'drizzle/schema';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { ProjectExistsPipe } from './middlewares/projectExists.middleware';
+import { ApiTags } from '@nestjs/swagger';
 
 type StatusTag = (typeof statusTagEnum.enumValues)[number];
 type TypeTag = (typeof typeTagEnum.enumValues)[number];
-
+@ApiTags('Projects')
 @Controller('/api/projects')
 @UseGuards(JwtAuthGuard)
 export class ProjectController {

@@ -10,11 +10,13 @@ import {
   MaxLength,
 } from 'class-validator';
 import { IsEmailExists } from '../decorators/IsEmailExists.decorator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateMemberDto {
   @IsArray()
   @IsInt({ each: true })
   @Type(() => Number)
+  @ApiProperty({ type: [Number] })
   roleIds: number[];
 
   @IsNotEmpty()

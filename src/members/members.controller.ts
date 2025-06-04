@@ -20,6 +20,8 @@ import { UpdateMemberDto } from './dto/update-member.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MemberExistsPipe } from './middleware/memberExisits.middleware';
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('Members')
 @Controller('/api/members')
 export class MembersController {
   constructor(private readonly membersService: MembersService) {}
