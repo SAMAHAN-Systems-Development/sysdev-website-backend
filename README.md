@@ -123,31 +123,19 @@ After that you now have finally setup the backend and ready to start to run the 
 
 After you finish setting up the backend, you can now follow this step to get things running
 
-1. Pull from the main
-
-```bash
-git pull origin main
-```
-
-2. Install the libraries
-
-```bash
-npm install
-```
-
-3. Run the docker containers (make sure that you already started your docker application)
+1. Run the docker containers (make sure that you already started your docker application)
 
 ```bash
 docker compose -f docker-compose.local.yml up -d
 ```
 
-4. Migrate database
+2. Migrate database
 
 ```bash
 npm run db:migrate
 ```
 
-5. Generate Dummy Data (optional)
+3. Generate Dummy Data (optional)
 
 ```bash
 npm run db:seed
