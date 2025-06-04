@@ -11,6 +11,9 @@ import {
   alumni,
   blogs,
   users,
+  memberRoles,
+  organizations,
+  collaboratorAssignments,
 } from './schema'; // Adjust path as needed
 import { faker } from '@faker-js/faker';
 import { Logger } from '@nestjs/common';
@@ -51,7 +54,7 @@ async function createBucket(bucketName: string) {
   }
 }
 const db = drizzle(pool);
-export async function seedProjectss() {
+export async function seedProjects() {
   logger.log('Seeding projectss...');
   await db.insert(projects).values([
     {
@@ -69,11 +72,11 @@ export async function seedProjectss() {
       featured: true,
     },
   ]);
-  logger.log('✅ Projectss seeded');
+  logger.log('✅ Projects seeded');
 }
 
-export async function seedMemberss() {
-  logger.log('Seeding memberss...');
+export async function seedMembers() {
+  logger.log('Seeding members...');
   await db.insert(members).values([
     {
       name: 'Alice Johnson',
@@ -88,8 +91,23 @@ export async function seedMemberss() {
   ]);
   logger.log('✅ Memberss seeded');
 }
-
-export async function seedRoless() {
+export async function seedMemberRoles() {
+  logger.log('Seeding Member Roles..');
+  const membersData = await db.select().from(members);
+  const rolesData = await db.select().from(roles);
+  await db.insert(memberRoles).values([
+    {
+      memberId: membersData[0].id,
+      roleId: rolesData[0].id,
+    },
+    {
+      memberId: membersData[0].id,
+      roleId: rolesData[0].id,
+    },
+  ]);
+  logger.log('✅ Member Roles seeded');
+}
+export async function seedRoles() {
   logger.log('Seeding roless...');
   await db.insert(roles).values([{ name: 'Developer' }, { name: 'Designer' }]);
   logger.log('✅ Roless seeded');
@@ -108,12 +126,67 @@ export async function seedCollaborators() {
   ]);
   logger.log('✅ Collaborators seeded');
 }
+export async function seedCollaboratorAssignment() {
+  logger.log('Seeding collaborator Assignments');
+  const role = await db.select().from(roles);
+  const orgs = await db.select().from(organizations);
+  const member = await db.select().from(members);
+  const collaborators = await db.select().from(collaborator);
+  await db.insert(collaboratorAssignments).values([
+    {
+      collaboratorId: collaborators[0].id,
+      roleId: role[0].id,
+      organizationId: orgs[0].id,
+    },
+    {
+      collaboratorId: collaborators[0].id,
+      roleId: role[0].id,
+      organizationId: orgs[1].id,
+    },
 
+    {
+      collaboratorId: collaborators[0].id,
+      roleId: role[1].id,
+      organizationId: orgs[2].id,
+    },
+    {
+      collaboratorId: collaborators[0].id,
+      roleId: role[1].id,
+      organizationId: orgs[3].id,
+    },
+    {
+      collaboratorId: collaborators[0].id,
+      roleId: role[1].id,
+      organizationId: orgs[4].id,
+    },
+    {
+      collaboratorId: collaborators[0].id,
+      roleId: role[0].id,
+      memberId: member[0].id,
+    },
+    {
+      collaboratorId: collaborators[0].id,
+      roleId: role[0].id,
+      memberId: member[1].id,
+    },
+  ]);
+  logger.log('✅ Collaborator Assignments seeded');
+}
+export async function seedOrganiztions() {
+  logger.log('Seeding Organiztions');
+  const data = Array.from({ length: 5 }).map(() => ({
+    name: faker.company.name(),
+    description: faker.company.catchPhrase(),
+  }));
+  await db.insert(organizations).values(data);
+
+  logger.log('✅ Organiztions seeded');
+}
 export async function seedBatches() {
   logger.log('Seeding batches...');
   await db
     .insert(batch)
-    .values([{ batch_name: 'Batch Alpha' }, { batch_name: 'Batch Beta' }]);
+    .values([{ batchName: 'Batch Alpha' }, { batchName: 'Batch Beta' }]);
   logger.log('✅ Batches seeded');
 }
 
@@ -124,18 +197,18 @@ export async function seedAlumni() {
 
   await db.insert(alumni).values([
     {
-      batch_id: batches[0].id,
+      batchId: batches[0].id,
       fullname: faker.person.fullName(),
     },
     {
-      batch_id: batches[1].id,
+      batchId: batches[1].id,
       fullname: faker.person.fullName(),
     },
   ]);
   logger.log('✅ Alumni seeded');
 }
 
-export async function seedEventss() {
+export async function seedEvents() {
   logger.log('Seeding eventss...');
   await db
     .insert(events)
@@ -152,20 +225,20 @@ export async function seedBlogs() {
     {
       title: 'Celebrating Founders Day',
       tag: eventss[0].id,
-      cover_image: faker.image.urlPicsumPhotos(),
+      coverImage: faker.image.urlPicsumPhotos(),
       link: faker.internet.url(),
     },
     {
       title: 'Hackathon Highlights',
       tag: eventss[1].id,
-      cover_image: faker.image.urlPicsumPhotos(),
+      coverImage: faker.image.urlPicsumPhotos(),
       link: faker.internet.url(),
     },
   ]);
   logger.log('✅ Blogs seeded');
 }
 
-export async function seedUserss() {
+export async function seedUsers() {
   try {
     const usersData = [
       {
@@ -183,9 +256,9 @@ export async function seedUserss() {
     }
 
     await db.insert(users).values(usersData);
-    Logger.log('Users Added');
+    logger.log('Users Added');
   } catch (error) {
-    Logger.error('Users might already exists, or something went wrong', error);
+    logger.error('Users might already exists, or something went wrong', error);
   }
 }
 
@@ -193,14 +266,17 @@ async function main() {
   try {
     logger.log('🌱 Starting seeding...');
     await createBucket(process.env.IMAGE_BUCKET);
-    await seedUserss();
-    await seedProjectss();
-    await seedRoless();
-    await seedMemberss();
+    await seedUsers();
+    await seedProjects();
+    await seedRoles();
+    await seedMembers();
+    await seedMemberRoles();
     await seedCollaborators();
+    await seedOrganiztions();
+    await seedCollaboratorAssignment();
     await seedBatches();
     await seedAlumni();
-    await seedEventss();
+    await seedEvents();
     await seedBlogs();
     logger.log('🌱 Seeding complete');
   } catch (error) {
