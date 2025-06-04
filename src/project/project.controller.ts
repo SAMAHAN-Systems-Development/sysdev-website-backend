@@ -3,7 +3,7 @@ import {
   Get,
   Post,
   Body,
-  Patch,
+  Put,
   Param,
   Delete,
   UseGuards,
@@ -18,6 +18,8 @@ import {
   UploadedFiles,
   BadRequestException,
   ParseIntPipe,
+  InternalServerErrorException,
+  HttpException,
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
@@ -31,6 +33,7 @@ type StatusTag = typeof statusTagEnum.enumValues[number];
 type TypeTag = typeof typeTagEnum.enumValues[number];
 
 @Controller('/api/projects')
+@Controller('projects')
 @UseGuards(JwtAuthGuard)
 export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
@@ -92,12 +95,32 @@ export class ProjectController {
     return this.projectService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id', ParseIntPipe, ProjectExistsPipe) id: string,
+  @Put(':id')
+  @UseInterceptors(FileFieldsInterceptor([{ name: 'newImages' }]))
+  async update(
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateProjectDto: UpdateProjectDto,
+    @UploadedFiles() files: { newImages?: Express.Multer.File[] },
   ) {
-    return this.projectService.update(+id, updateProjectDto);
+    try {
+      return {
+        message: 'Project updated successfully',
+        data: await this.projectService.update(
+          id,
+          updateProjectDto,
+          files.newImages,
+        ),
+      };
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+
+      throw new InternalServerErrorException('Failed to update project', {
+        cause: error,
+        description: error.message,
+      });
+    }
   }
 
   @Delete(':id')

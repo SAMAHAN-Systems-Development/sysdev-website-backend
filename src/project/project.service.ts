@@ -172,8 +172,51 @@ export class ProjectService {
     };
   }
 
-  update(id: number, updateProjectDto: UpdateProjectDto) {
-    return `This action updates a #${id} project`;
+  async update(
+    id: number,
+    updateProjectDto: UpdateProjectDto,
+    images?: Express.Multer.File[],
+  ) {
+    const project = (
+      await this.db.select().from(projects).where(eq(projects.id, id)).execute()
+    )[0];
+
+    if (!project) {
+      throw new NotFoundException(`Project with id "${id}" does not exist`);
+    }
+
+    const unknownImages = updateProjectDto.images.filter(
+      (image) => !project.images.includes(image),
+    );
+
+    if (unknownImages.length > 0) {
+      throw new BadRequestException(
+        'Payload images list contains unknown links',
+      );
+    }
+
+    const uploadedUrls = images?.length
+      ? await Promise.all(
+          images.map((file) =>
+            this.miniIoService.uploadObject(
+              file,
+              this.configService.get<string>('IMAGE_BUCKET'),
+            ),
+          ),
+        ).then((results) => results.map((r) => r.url))
+      : [];
+
+    const [updatedProject] = await this.db
+      .update(projects)
+      .set({
+        ...updateProjectDto,
+        dateLaunched: new Date(updateProjectDto.dateLaunched),
+        images: updateProjectDto.images.concat(uploadedUrls),
+      })
+      .where(eq(projects.id, id))
+      .returning();
+
+    return updatedProject;
   }
 
   async remove(id: number) {
