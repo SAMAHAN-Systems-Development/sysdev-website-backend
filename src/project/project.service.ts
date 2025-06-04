@@ -11,6 +11,8 @@ import {
   Database,
   DATABASE_CONNECTION,
 } from 'src/database/database-connection';
+import { projects, statusTagEnum, typeTagEnum } from 'drizzle/schema';
+import { desc, asc, eq, and } from 'drizzle-orm';
 import {
   collaborator,
   collaboratorAssignments,
@@ -22,6 +24,9 @@ import {
 import { MinioService } from 'src/minio/minio.service';
 import { ConfigService } from '@nestjs/config';
 import { and, eq, inArray, isNull } from 'drizzle-orm';
+
+type StatusTag = typeof statusTagEnum.enumValues[number];
+type TypeTag = typeof typeTagEnum.enumValues[number];
 
 @Injectable()
 export class ProjectService {
@@ -59,8 +64,35 @@ export class ProjectService {
     });
   }
 
-  findAll() {
-    return this.db.select().from(projects);
+  async findAll(
+    sortBy: 'yearAsc' | 'yearDesc', 
+    status?: StatusTag, 
+    type?: TypeTag,
+    showFeaturedOnly?: boolean, 
+    page?: number,
+    limit?: number,
+  ) { 
+    const skip = (page - 1) * limit;
+
+    const query = await this.db
+      .select()
+      .from(projects)
+      .where(
+        and(
+          status ? eq(projects.status, status) : undefined,
+          type ? eq(projects.type, type) : undefined,
+          showFeaturedOnly ? eq(projects.featured, true) : undefined
+        )
+      )
+      .orderBy(
+        desc(projects.featured), 
+        sortBy === "yearDesc" ? desc(projects.dateLaunched) : asc(projects.dateLaunched), 
+        asc(projects.id) //to ensure consistent pagination
+      )
+      .limit(limit)
+      .offset(skip);
+
+    return query;
   }
 
   async findOne(id: number) {
