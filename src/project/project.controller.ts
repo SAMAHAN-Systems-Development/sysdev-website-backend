@@ -11,13 +11,11 @@ import {
   DefaultValuePipe,
   ParseBoolPipe,
   ParseIntPipe,
-  BadRequestException 
+  BadRequestException,
   HttpCode,
   HttpStatus,
   UseInterceptors,
   UploadedFiles,
-  BadRequestException,
-  ParseIntPipe,
   InternalServerErrorException,
   HttpException,
 } from '@nestjs/common';
@@ -29,11 +27,10 @@ import { statusTagEnum, typeTagEnum } from 'drizzle/schema';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { ProjectExistsPipe } from './middlewares/projectExists.middleware';
 
-type StatusTag = typeof statusTagEnum.enumValues[number];
-type TypeTag = typeof typeTagEnum.enumValues[number];
+type StatusTag = (typeof statusTagEnum.enumValues)[number];
+type TypeTag = (typeof typeTagEnum.enumValues)[number];
 
 @Controller('/api/projects')
-@Controller('projects')
 @UseGuards(JwtAuthGuard)
 export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
@@ -62,18 +59,19 @@ export class ProjectController {
 
   @Get()
   async findAll(
-    @Query('sort') sortBy: 'yearDesc' | 'yearAsc' = 'yearDesc', 
+    @Query('sort') sortBy: 'yearDesc' | 'yearAsc' = 'yearDesc',
     @Query('status') status?: StatusTag,
     @Query('type') type?: TypeTag,
-    @Query('featured', new DefaultValuePipe(false), new ParseBoolPipe()) showFeaturedOnly?: boolean, 
+    @Query('featured', new DefaultValuePipe(false), new ParseBoolPipe())
+    showFeaturedOnly?: boolean,
     @Query('page', new DefaultValuePipe(1), new ParseIntPipe()) page?: number,
-    @Query('limit', new DefaultValuePipe(10), new ParseIntPipe()) limit?: number,
+    @Query('limit', new DefaultValuePipe(10), new ParseIntPipe())
+    limit?: number,
   ) {
-
     if (page < 1) {
       throw new BadRequestException('Page must be greater than 0');
     }
-    
+
     if (limit < 1 || limit > 100) {
       throw new BadRequestException('Limit must be between 1 and 100');
     }
@@ -98,7 +96,7 @@ export class ProjectController {
   @Put(':id')
   @UseInterceptors(FileFieldsInterceptor([{ name: 'newImages' }]))
   async update(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseIntPipe, ProjectExistsPipe) id: number,
     @Body() updateProjectDto: UpdateProjectDto,
     @UploadedFiles() files: { newImages?: Express.Multer.File[] },
   ) {

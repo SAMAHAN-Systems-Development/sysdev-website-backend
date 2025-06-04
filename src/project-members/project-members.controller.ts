@@ -13,7 +13,7 @@ import { CreateProjectMemberDto } from './dto/create-project-member.dto';
 import { UpdateProjectMemberDto } from './dto/update-project-member.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 @UseGuards(JwtAuthGuard)
-@Controller('project-members')
+@Controller('api/project-members')
 export class ProjectMembersController {
   constructor(private readonly projectMembersService: ProjectMembersService) {}
 

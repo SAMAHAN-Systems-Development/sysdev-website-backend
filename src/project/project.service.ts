@@ -11,8 +11,6 @@ import {
   Database,
   DATABASE_CONNECTION,
 } from 'src/database/database-connection';
-import { projects, statusTagEnum, typeTagEnum } from 'drizzle/schema';
-import { desc, asc, eq, and } from 'drizzle-orm';
 import {
   collaborator,
   collaboratorAssignments,
@@ -20,13 +18,17 @@ import {
   organizations,
   projects,
   roles,
+  statusTagEnum,
+  typeTagEnum,
 } from 'drizzle/schema';
 import { MinioService } from 'src/minio/minio.service';
 import { ConfigService } from '@nestjs/config';
-import { and, eq, inArray, isNull } from 'drizzle-orm';
+import { desc, asc, and, eq, inArray, isNull } from 'drizzle-orm';
+import { Project } from './entities/project.entity';
+import { retry } from 'src/utils/retry';
 
-type StatusTag = typeof statusTagEnum.enumValues[number];
-type TypeTag = typeof typeTagEnum.enumValues[number];
+type StatusTag = (typeof statusTagEnum.enumValues)[number];
+type TypeTag = (typeof typeTagEnum.enumValues)[number];
 
 @Injectable()
 export class ProjectService {
@@ -65,13 +67,13 @@ export class ProjectService {
   }
 
   async findAll(
-    sortBy: 'yearAsc' | 'yearDesc', 
-    status?: StatusTag, 
+    sortBy: 'yearAsc' | 'yearDesc',
+    status?: StatusTag,
     type?: TypeTag,
-    showFeaturedOnly?: boolean, 
+    showFeaturedOnly?: boolean,
     page?: number,
     limit?: number,
-  ) { 
+  ) {
     const skip = (page - 1) * limit;
 
     const query = await this.db
@@ -81,13 +83,15 @@ export class ProjectService {
         and(
           status ? eq(projects.status, status) : undefined,
           type ? eq(projects.type, type) : undefined,
-          showFeaturedOnly ? eq(projects.featured, true) : undefined
-        )
+          showFeaturedOnly ? eq(projects.featured, true) : undefined,
+        ),
       )
       .orderBy(
-        desc(projects.featured), 
-        sortBy === "yearDesc" ? desc(projects.dateLaunched) : asc(projects.dateLaunched), 
-        asc(projects.id) //to ensure consistent pagination
+        desc(projects.featured),
+        sortBy === 'yearDesc'
+          ? desc(projects.dateLaunched)
+          : asc(projects.dateLaunched),
+        asc(projects.id), //to ensure consistent pagination
       )
       .limit(limit)
       .offset(skip);
@@ -177,46 +181,97 @@ export class ProjectService {
     updateProjectDto: UpdateProjectDto,
     images?: Express.Multer.File[],
   ) {
-    const project = (
-      await this.db.select().from(projects).where(eq(projects.id, id)).execute()
-    )[0];
+    return this.db.transaction(async (tx) => {
+      let result: Project;
+      const project = await tx
+        .select()
+        .from(projects)
+        .where(eq(projects.id, id))
+        .limit(1);
 
-    if (!project) {
-      throw new NotFoundException(`Project with id "${id}" does not exist`);
-    }
+      if (!project[0]) throw new NotFoundException('Project not found');
 
-    const unknownImages = updateProjectDto.images.filter(
-      (image) => !project.images.includes(image),
-    );
+      const existingImageUrls = project[0].images ?? [];
 
-    if (unknownImages.length > 0) {
-      throw new BadRequestException(
-        'Payload images list contains unknown links',
+      const invalidImages = updateProjectDto.images.filter(
+        (image) => !project[0].images.includes(image),
       );
-    }
 
-    const uploadedUrls = images?.length
-      ? await Promise.all(
-          images.map((file) =>
-            this.miniIoService.uploadObject(
-              file,
-              this.configService.get<string>('IMAGE_BUCKET'),
+      if (invalidImages.length > 0) {
+        throw new BadRequestException(
+          'Payload images list contains unknown links',
+        );
+      }
+
+      result = (
+        await tx
+          .update(projects)
+          .set({
+            ...updateProjectDto,
+            dateLaunched: new Date(updateProjectDto.dateLaunched),
+          })
+          .where(eq(projects.id, id))
+          .returning()
+          .execute()
+      )[0];
+
+      const uploadResults = images.length
+        ? await Promise.allSettled(
+            images.map((file) =>
+              retry(
+                () =>
+                  this.miniIoService.uploadObject(
+                    file,
+                    this.configService.get<string>('IMAGE_BUCKET'),
+                  ),
+                'Upload Image',
+                3,
+                500,
+              ),
             ),
+          )
+        : [];
+
+      const successfulUploads = uploadResults
+        .filter(
+          (res): res is PromiseFulfilledResult<{ key: string; url: string }> =>
+            res.status === 'fulfilled',
+        )
+        .map((res) => res.value.url);
+
+      const failedUploads = uploadResults
+        .filter(
+          (res): res is PromiseRejectedResult => res.status === 'rejected',
+        )
+        .map((res) => res.reason);
+
+      const deletedImages = existingImageUrls.filter(
+        (url) => !updateProjectDto.images.includes(url),
+      );
+
+      await Promise.all(
+        deletedImages.map((url) =>
+          retry(
+            () => this.miniIoService.deleteObjectFromUrl(url),
+            'Delete Images',
           ),
-        ).then((results) => results.map((r) => r.url))
-      : [];
+        ),
+      );
 
-    const [updatedProject] = await this.db
-      .update(projects)
-      .set({
-        ...updateProjectDto,
-        dateLaunched: new Date(updateProjectDto.dateLaunched),
-        images: updateProjectDto.images.concat(uploadedUrls),
-      })
-      .where(eq(projects.id, id))
-      .returning();
-
-    return updatedProject;
+      if (successfulUploads.length > 0) {
+        result = (
+          await tx
+            .update(projects)
+            .set({
+              images: updateProjectDto.images.concat(successfulUploads),
+            })
+            .where(eq(projects.id, id))
+            .returning()
+            .execute()
+        )[0];
+      }
+      return { result, failedUploads };
+    });
   }
 
   async remove(id: number) {

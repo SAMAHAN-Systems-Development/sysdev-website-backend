@@ -3,6 +3,8 @@ import { AuthService } from './auth.service';
 import { Request } from 'express';
 import { LocalGuard } from './guards/local.guard';
 import { JwtAuthGuard } from './guards/jwt.guard';
+import { ApiBody } from '@nestjs/swagger';
+import { AuthPayloadDto } from './dto/auth.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -10,6 +12,7 @@ export class AuthController {
 
   @Post('login')
   @UseGuards(LocalGuard)
+  @ApiBody({ type: AuthPayloadDto })
   login(@Req() req: Request) {
     return req.user;
   }

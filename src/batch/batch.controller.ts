@@ -13,7 +13,7 @@ import { CreateBatchDto } from './dto/create-batch.dto';
 import { UpdateBatchDto } from './dto/update-batch.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 @UseGuards(JwtAuthGuard)
-@Controller('batch')
+@Controller('api/batch')
 export class BatchController {
   constructor(private readonly batchService: BatchService) {}
 

@@ -13,7 +13,7 @@ import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 @UseGuards(JwtAuthGuard)
-@Controller('roles')
+@Controller('api/roles')
 export class RolesController {
   constructor(private readonly rolesService: RolesService) {}
 
