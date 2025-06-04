@@ -192,9 +192,8 @@ export class ProjectService {
       if (!project[0]) throw new NotFoundException('Project not found');
 
       const existingImageUrls = project[0].images ?? [];
-
       const invalidImages = updateProjectDto.images.filter(
-        (image) => !project[0].images.includes(image),
+        (image) => !existingImageUrls[0].includes(image),
       );
 
       if (invalidImages.length > 0) {
@@ -215,62 +214,67 @@ export class ProjectService {
           .execute()
       )[0];
 
-      const uploadResults = images.length
-        ? await Promise.allSettled(
-            images.map((file) =>
-              retry(
-                () =>
-                  this.miniIoService.uploadObject(
-                    file,
-                    this.configService.get<string>('IMAGE_BUCKET'),
-                  ),
-                'Upload Image',
-                3,
-                500,
+      if (images) {
+        const uploadResults = images.length
+          ? await Promise.allSettled(
+              images.map((file) =>
+                retry(
+                  () =>
+                    this.miniIoService.uploadObject(
+                      file,
+                      this.configService.get<string>('IMAGE_BUCKET'),
+                    ),
+                  'Upload Image',
+                  3,
+                  500,
+                ),
               ),
-            ),
+            )
+          : [];
+
+        const successfulUploads = uploadResults
+          .filter(
+            (
+              res,
+            ): res is PromiseFulfilledResult<{ key: string; url: string }> =>
+              res.status === 'fulfilled',
           )
-        : [];
+          .map((res) => res.value.url);
 
-      const successfulUploads = uploadResults
-        .filter(
-          (res): res is PromiseFulfilledResult<{ key: string; url: string }> =>
-            res.status === 'fulfilled',
-        )
-        .map((res) => res.value.url);
+        const failedUploads = uploadResults
+          .filter(
+            (res): res is PromiseRejectedResult => res.status === 'rejected',
+          )
+          .map((res) => res.reason);
 
-      const failedUploads = uploadResults
-        .filter(
-          (res): res is PromiseRejectedResult => res.status === 'rejected',
-        )
-        .map((res) => res.reason);
+        const deletedImages = existingImageUrls.filter(
+          (url) => !updateProjectDto.images.includes(url),
+        );
 
-      const deletedImages = existingImageUrls.filter(
-        (url) => !updateProjectDto.images.includes(url),
-      );
-
-      await Promise.all(
-        deletedImages.map((url) =>
-          retry(
-            () => this.miniIoService.deleteObjectFromUrl(url),
-            'Delete Images',
+        await Promise.all(
+          deletedImages.map((url) =>
+            retry(
+              () => this.miniIoService.deleteObjectFromUrl(url),
+              'Delete Images',
+            ),
           ),
-        ),
-      );
+        );
 
-      if (successfulUploads.length > 0) {
-        result = (
-          await tx
-            .update(projects)
-            .set({
-              images: updateProjectDto.images.concat(successfulUploads),
-            })
-            .where(eq(projects.id, id))
-            .returning()
-            .execute()
-        )[0];
+        if (successfulUploads.length > 0) {
+          result = (
+            await tx
+              .update(projects)
+              .set({
+                images: updateProjectDto.images.concat(successfulUploads),
+              })
+              .where(eq(projects.id, id))
+              .returning()
+              .execute()
+          )[0];
+        }
+        return { result, failedUploads: failedUploads };
       }
-      return { result, failedUploads };
+      return { result, failedUploads: [] };
     });
   }
 

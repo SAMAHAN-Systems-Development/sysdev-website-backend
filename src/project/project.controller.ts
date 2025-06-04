@@ -94,11 +94,11 @@ export class ProjectController {
   }
 
   @Put(':id')
-  @UseInterceptors(FileFieldsInterceptor([{ name: 'newImages' }]))
+  @UseInterceptors(FileFieldsInterceptor([{ name: 'images' }]))
   async update(
     @Param('id', ParseIntPipe, ProjectExistsPipe) id: number,
     @Body() updateProjectDto: UpdateProjectDto,
-    @UploadedFiles() files: { newImages?: Express.Multer.File[] },
+    @UploadedFiles() files: { images?: Express.Multer.File[] },
   ) {
     try {
       return {
@@ -106,7 +106,7 @@ export class ProjectController {
         data: await this.projectService.update(
           id,
           updateProjectDto,
-          files.newImages,
+          files.images,
         ),
       };
     } catch (error) {
