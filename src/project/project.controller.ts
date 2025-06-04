@@ -20,22 +20,41 @@ import {
   HttpException,
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
-import { CreateProjectDto } from './dto/create-project.dto';
+import { CreateProjectDto, MulterClassDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { statusTagEnum, typeTagEnum } from 'drizzle/schema';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { ProjectExistsPipe } from './middlewares/projectExists.middleware';
-import { ApiTags } from '@nestjs/swagger';
-
+import {
+  ApiBody,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+  ApiBearerAuth,
+  ApiConsumes,
+} from '@nestjs/swagger';
 type StatusTag = (typeof statusTagEnum.enumValues)[number];
 type TypeTag = (typeof typeTagEnum.enumValues)[number];
 @ApiTags('Projects')
 @Controller('/api/projects')
-@UseGuards(JwtAuthGuard)
 export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
+  @ApiBearerAuth('access-token')
+  @ApiBody({ type: MulterClassDto })
+  @ApiConsumes('multipart/form-data')
+  @ApiOperation({
+    summary: 'Create Project',
+    description: 'Unauthorized: Either auth bearer expired or not provided jwt',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Successfully created Project and Returning Created Project',
+    type: CreateProjectDto,
+  })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @UseGuards(JwtAuthGuard)
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @UseInterceptors(FileFieldsInterceptor([{ name: 'images' }]))
@@ -58,6 +77,14 @@ export class ProjectController {
     };
   }
 
+  @ApiOperation({
+    summary: 'Get All Projects',
+    description: 'No authorization at all',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Successfully retrive all projects with pagination',
+  })
   @Get()
   async findAll(
     @Query('sort') sortBy: 'yearDesc' | 'yearAsc' = 'yearDesc',
@@ -89,11 +116,33 @@ export class ProjectController {
     return projects;
   }
 
+  @ApiOperation({
+    summary: 'Get Project By ID',
+    description: 'No Authorization at all',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Successfully retrive all projects with pagination',
+  })
   @Get(':id')
   findOne(@Param('id', ParseIntPipe, ProjectExistsPipe) id: string) {
     return this.projectService.findOne(+id);
   }
 
+  @ApiBearerAuth('access-token')
+  @ApiBody({ type: MulterClassDto })
+  @ApiConsumes('multipart/form-data')
+  @ApiOperation({
+    summary: 'Update Project',
+    description: 'Unauthorized: Either auth bearer expired or not provided jwt',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Successfully updated Project and Returning updated Project',
+    type: CreateProjectDto,
+  })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   @UseInterceptors(FileFieldsInterceptor([{ name: 'images' }]))
   async update(
@@ -122,6 +171,20 @@ export class ProjectController {
     }
   }
 
+  @ApiBearerAuth('access-token')
+  @ApiBody({ type: MulterClassDto })
+  @ApiConsumes('multipart/form-data')
+  @ApiOperation({
+    summary: 'Delete Project',
+    description: 'Unauthorized: Either auth bearer expired or not provided jwt',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Successfully deleted Project and Returning deleted Project',
+    type: CreateProjectDto,
+  })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   @HttpCode(HttpStatus.OK)
   remove(@Param('id', ParseIntPipe, ProjectExistsPipe) id: string) {

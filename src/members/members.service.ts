@@ -131,7 +131,7 @@ export class MembersService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} member`;
+    return this.db.select().from(members).where(eq(members.id, id));
   }
 
   async update(

@@ -8,9 +8,18 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Sysdev Website')
-    .setDescription('An API for the Sysdev Website')
+    .setDescription(
+      'An API for the Sysdev Website: \n\n\n Currently Working Endpoints: \n - App \n - Auth \n - Members \n - Projects',
+    )
     .setVersion('1.0')
-    .addBearerAuth()
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+      'access-token',
+    )
     .addSecurityRequirements('bearer')
     .build();
   const document = SwaggerModule.createDocument(app, config);

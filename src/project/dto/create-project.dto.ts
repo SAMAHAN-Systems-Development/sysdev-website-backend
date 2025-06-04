@@ -58,3 +58,22 @@ export class CreateProjectDto {
   @ApiProperty({ type: Boolean })
   featured?: boolean;
 }
+export class MulterClassDto extends CreateProjectDto {
+  // @ApiProperty({
+  //   type: 'array',
+  //   items: {
+  //     type: 'string',
+  //     format: 'binary',
+  //   },
+  //   description: 'Project images',
+  //   required: false,
+  // })
+  // images?: Express.Multer.File[];
+
+  @ApiProperty({
+    type: 'string',
+    format: 'binary',
+    description: 'Single file upload',
+  })
+  files?: Express.Multer.File[];
+}
