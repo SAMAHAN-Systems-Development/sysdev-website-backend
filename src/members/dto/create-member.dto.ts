@@ -16,40 +16,37 @@ export class CreateMemberDto {
   @IsArray()
   @IsInt({ each: true })
   @Type(() => Number)
-  @ApiProperty({ type: [Number], example: [0, 1] })
+  @ApiProperty({
+    type: [Number],
+    example: [0, 1],
+    description:
+      'Provide the role ID and not name. On multipart it should look like roleIds[0], roleIds[1], roleIds[2]',
+  })
   roleIds: number[];
 
   @IsNotEmpty()
   @IsString()
   @MaxLength(255)
-  @ApiProperty({ type: String })
+  @ApiProperty({ type: String, description: 'Member name' })
   name: string;
 
   @IsEmail()
   @IsNotEmpty()
   @MaxLength(255)
   @IsEmailExists({ message: 'Email already exists' })
-  @ApiProperty({ type: String })
+  @ApiProperty({ type: String, description: 'Unique Email only' })
   email: string;
 
   @IsOptional()
   @IsBoolean()
   @Type(() => Boolean)
-  @ApiProperty({ type: Boolean })
+  @ApiProperty({
+    type: Boolean,
+    description: 'This is the visibility of the member (true or false)',
+  })
   isVisible?: boolean;
 }
-export class MulterClassDto extends CreateMemberDto {
-  // @ApiProperty({
-  //   type: 'array',
-  //   items: {
-  //     type: 'string',
-  //     format: 'binary',
-  //   },
-  //   description: 'Project images',
-  //   required: false,
-  // })
-  // images?: Express.Multer.File[];
-
+export class MulterClassMemberDto extends CreateMemberDto {
   @ApiProperty({
     type: 'string',
     format: 'binary',

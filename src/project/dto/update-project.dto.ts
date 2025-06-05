@@ -1,3 +1,4 @@
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { CreateProjectDto } from './create-project.dto';
 import { IsArray, IsString } from 'class-validator';
 
@@ -5,5 +6,28 @@ import { IsArray, IsString } from 'class-validator';
 export class UpdateProjectDto extends CreateProjectDto {
   @IsArray()
   @IsString({ each: true })
-  images: string[];
+  @ApiPropertyOptional({
+    type: 'array',
+    items: {
+      type: 'string',
+    },
+    description: 'Array of existing image URLs or identifiers',
+    example: [
+      'https://example.com/image1.jpg',
+      'https://example.com/image2.jpg',
+    ],
+  })
+  existingImages: string[];
+}
+export class MulterClassUpdateProjectDto extends UpdateProjectDto {
+  @ApiProperty({
+    type: 'array',
+    items: {
+      type: 'string',
+      format: 'binary',
+    },
+    description: 'Multiple files upload images',
+    required: false,
+  })
+  images?: Express.Multer.File[];
 }

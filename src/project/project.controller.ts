@@ -20,8 +20,14 @@ import {
   HttpException,
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
-import { CreateProjectDto, MulterClassDto } from './dto/create-project.dto';
-import { UpdateProjectDto } from './dto/update-project.dto';
+import {
+  CreateProjectDto,
+  MulterClassCreateProjectDto,
+} from './dto/create-project.dto';
+import {
+  MulterClassUpdateProjectDto,
+  UpdateProjectDto,
+} from './dto/update-project.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { statusTagEnum, typeTagEnum } from 'drizzle/schema';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
@@ -33,6 +39,8 @@ import {
   ApiTags,
   ApiBearerAuth,
   ApiConsumes,
+  ApiQuery,
+  ApiParam,
 } from '@nestjs/swagger';
 type StatusTag = (typeof statusTagEnum.enumValues)[number];
 type TypeTag = (typeof typeTagEnum.enumValues)[number];
@@ -42,7 +50,7 @@ export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
   @ApiBearerAuth('access-token')
-  @ApiBody({ type: MulterClassDto })
+  @ApiBody({ type: MulterClassCreateProjectDto })
   @ApiConsumes('multipart/form-data')
   @ApiOperation({
     summary: 'Create Project',
@@ -83,7 +91,62 @@ export class ProjectController {
   })
   @ApiResponse({
     status: 200,
-    description: 'Successfully retrive all projects with pagination',
+    description: 'Successfully retrieve all projects with pagination',
+  })
+  @ApiQuery({
+    name: 'sort',
+    required: false,
+    description: 'Sort projects by year ascending or descending',
+    schema: {
+      enum: ['yearDesc', 'yearAsc'],
+      default: 'yearDesc',
+    },
+    example: 'yearDesc',
+  })
+  @ApiQuery({
+    name: 'status',
+    required: false,
+    description: 'Filter projects by status',
+    enum: statusTagEnum.enumValues,
+  })
+  @ApiQuery({
+    name: 'type',
+    required: false,
+    description: 'Filter projects by type',
+    enum: typeTagEnum.enumValues,
+  })
+  @ApiQuery({
+    name: 'featured',
+    required: false,
+    description: 'Show only featured projects',
+    schema: {
+      type: 'boolean',
+      default: false,
+    },
+    example: false,
+  })
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    description: 'Page number (pagination), minimum 1',
+    schema: {
+      type: 'integer',
+      default: 1,
+      minimum: 1,
+    },
+    example: 1,
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    description: 'Number of projects per page, between 1 and 100',
+    schema: {
+      type: 'integer',
+      default: 10,
+      minimum: 1,
+      maximum: 100,
+    },
+    example: 10,
   })
   @Get()
   async findAll(
@@ -118,11 +181,18 @@ export class ProjectController {
 
   @ApiOperation({
     summary: 'Get Project By ID',
-    description: 'No Authorization at all',
+    description:
+      'No Authorization at all, Gets more detailed project information with collaboratorByRoles',
   })
   @ApiResponse({
     status: 200,
     description: 'Successfully retrive all projects with pagination',
+  })
+  @ApiParam({
+    name: 'id',
+    required: true,
+    type: Number,
+    description: 'Provide Project by the provided ID, with collaboratorByroles',
   })
   @Get(':id')
   findOne(@Param('id', ParseIntPipe, ProjectExistsPipe) id: string) {
@@ -130,7 +200,7 @@ export class ProjectController {
   }
 
   @ApiBearerAuth('access-token')
-  @ApiBody({ type: MulterClassDto })
+  @ApiBody({ type: MulterClassUpdateProjectDto })
   @ApiConsumes('multipart/form-data')
   @ApiOperation({
     summary: 'Update Project',
@@ -139,9 +209,15 @@ export class ProjectController {
   @ApiResponse({
     status: 200,
     description: 'Successfully updated Project and Returning updated Project',
-    type: CreateProjectDto,
+    type: UpdateProjectDto,
   })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiParam({
+    name: 'id',
+    required: true,
+    type: Number,
+    description: 'Update Project by the provided ID',
+  })
   @UseGuards(JwtAuthGuard)
   @Put(':id')
   @UseInterceptors(FileFieldsInterceptor([{ name: 'images' }]))
@@ -172,7 +248,6 @@ export class ProjectController {
   }
 
   @ApiBearerAuth('access-token')
-  @ApiBody({ type: MulterClassDto })
   @ApiConsumes('multipart/form-data')
   @ApiOperation({
     summary: 'Delete Project',
@@ -184,6 +259,12 @@ export class ProjectController {
     type: CreateProjectDto,
   })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiParam({
+    name: 'id',
+    required: true,
+    type: Number,
+    description: 'Delete Project by the provided ID',
+  })
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
   @HttpCode(HttpStatus.OK)
