@@ -29,7 +29,7 @@ Samahan Official Website Backend is the server-side component powering the Samah
 |---------------|------------------|--------------------|-----------------------------|
 | MinIO         | `http://localhost:9001` | Object storage GUI | `minioadmin` / `minioadmin123`     |
 | pgAdmin       | `http://localhost:8080` | PostgreSQL GUI     | `admin@admin.com` / `admin`     |
-| Swagger (OpenAPI) | `http://localhost:3000/api` | Api Documentation (Application must be running) | Api's are locked so use the `/auth/login` to get the token
+| Swagger (OpenAPI) | `http://localhost:8000/api` | Api Documentation (Application must be running) | Api's are locked so use the `/auth/login` to get the token
 
 *Just make sure that you have already executed the docker-compose*
 
@@ -61,7 +61,21 @@ docker compose -f docker-compose.prod.yml up -d --build
   docker compose -f docker-compose.prod.yml down
   ```
 
-You have now successfully deployed a working production server! You can access it at `localhost:3000`. For more information about web GUIs and credentials, see the [Web GUIs and Credentials](#web-guis-and-credentials) section.
+4. Migrate database
+
+```bash
+npm run db:migrate
+```
+
+You can proceed below if you need dummy data. if not just ignore this step 5.
+
+5. Generate Dummy Data (optional)
+
+```bash
+npm run db:seed
+```
+
+You have now successfully deployed a working production server! You can access it at `localhost:8000`. For more information about web GUIs and credentials, see the [Web GUIs and Credentials](#web-guis-and-credentials) section.
 
 ----
 
