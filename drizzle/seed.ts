@@ -58,13 +58,61 @@ export async function seedProjects() {
   logger.log('Seeding projectss...');
   await db.insert(projects).values([
     {
-      title: 'Enterprise Portal',
-      briefDesc: 'A portal for managing enterprise operations.',
-      fullDesc: 'Full description for Enterprise Portal.',
+      title: 'Student Management System',
+      briefDesc: 'A system for managing student records and activities.',
+      fullDesc: 'Full description for Student Management System.',
       dateLaunched: new Date(),
       links: [
         { name: 'Production', link: 'https://example.com' },
-        { name: 'Repository', link: 'https://github.com/example/enterprise' },
+        { name: 'Repository', link: 'https://github.com/example/student-mgmt' },
+      ],
+      images: ['https://example.com/img1.jpg', 'https://example.com/img2.jpg'],
+      status: 'active',
+      type: 'internal',
+      featured: true,
+    },
+    {
+      title: 'Inventory Tracker',
+      briefDesc: 'Tracks inventory for small businesses.',
+      fullDesc: 'Full description for Inventory Tracker.',
+      dateLaunched: new Date(),
+      links: [
+        { name: 'Production', link: 'https://example.com' },
+        { name: 'Repository', link: 'https://github.com/example/inventory' },
+      ],
+      images: ['https://example.com/img1.jpg', 'https://example.com/img2.jpg'],
+      status: 'active',
+      type: 'internal',
+      featured: true,
+    },
+    {
+      title: 'Event Scheduler',
+      briefDesc: 'Schedules and manages events efficiently.',
+      fullDesc: 'Full description for Event Scheduler.',
+      dateLaunched: new Date(),
+      links: [
+        { name: 'Production', link: 'https://example.com' },
+        {
+          name: 'Repository',
+          link: 'https://github.com/example/event-scheduler',
+        },
+      ],
+      images: ['https://example.com/img1.jpg', 'https://example.com/img2.jpg'],
+      status: 'active',
+      type: 'internal',
+      featured: true,
+    },
+    {
+      title: 'Online Learning Platform',
+      briefDesc: 'A platform for online courses and learning.',
+      fullDesc: 'Full description for Online Learning Platform.',
+      dateLaunched: new Date(),
+      links: [
+        { name: 'Production', link: 'https://example.com' },
+        {
+          name: 'Repository',
+          link: 'https://github.com/example/learning-platform',
+        },
       ],
       images: ['https://example.com/img1.jpg', 'https://example.com/img2.jpg'],
       status: 'active',
@@ -242,12 +290,8 @@ export async function seedUsers() {
   try {
     const usersData = [
       {
-        email: 'aj1@gmail.com',
-        password: 'secretPassword',
-      },
-      {
-        email: 'aj2@gmail.com',
-        password: 'secretPassword',
+        email: 'admin@admin.com',
+        password: 'admin',
       },
     ];
 

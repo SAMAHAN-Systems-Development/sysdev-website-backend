@@ -28,7 +28,7 @@ export class CreateMemberDto {
   @IsEmail()
   @IsNotEmpty()
   @MaxLength(255)
-  @IsEmailExists()
+  @IsEmailExists({ message: 'Email already exists' })
   @ApiProperty({ type: String })
   email: string;
 

@@ -26,7 +26,7 @@ export function IsEmailExists(validationOptions?: ValidationOptions) {
 
 @ValidatorConstraint({ name: 'IsEmailExists', async: true })
 @Injectable()
-class IsEmailExistsConstraints implements ValidatorConstraintInterface {
+export class IsEmailExistsConstraints implements ValidatorConstraintInterface {
   constructor(
     @Inject(DATABASE_CONNECTION)
     private readonly db: Database,
