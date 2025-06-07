@@ -17,7 +17,6 @@ import {
   UseInterceptors,
   UploadedFiles,
   InternalServerErrorException,
-  HttpException,
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import {
@@ -65,24 +64,32 @@ export class ProjectController {
   @UseGuards(JwtAuthGuard)
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  @UseInterceptors(FileFieldsInterceptor([{ name: 'images' }]))
+  @UseInterceptors(FileFieldsInterceptor([{ name: 'newImages' }]))
   async create(
-    @UploadedFiles() files: { images?: Express.Multer.File[] },
+    @UploadedFiles() files: { newImages?: Express.Multer.File[] },
     @Body() createProjectDto: CreateProjectDto,
   ) {
-    if (!files.images || files.images.length == 0) {
+    if (!files.newImages || files.newImages.length == 0) {
       throw new BadRequestException('At least one image file is required');
     }
 
-    const project = await this.projectService.create(
-      createProjectDto,
-      files.images,
-    );
+    try {
+      const project = await this.projectService.create(
+        createProjectDto,
+        files.newImages,
+      );
 
-    return {
-      message: 'Project created successfully',
-      data: project,
-    };
+      return {
+        statusCode: 201,
+        message: 'Project created successfully',
+        data: project,
+      };
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to create project', {
+        cause: error,
+        description: error.message,
+      });
+    }
   }
 
   @ApiOperation({
@@ -167,16 +174,23 @@ export class ProjectController {
       throw new BadRequestException('Limit must be between 1 and 100');
     }
 
-    const projects = await this.projectService.findAll(
-      sortBy,
-      status,
-      type,
-      showFeaturedOnly,
-      page,
-      limit,
-    );
+    try {
+      const projects = await this.projectService.findAll(
+        sortBy,
+        status,
+        type,
+        showFeaturedOnly,
+        page,
+        limit,
+      );
 
-    return projects;
+      return { page: page, limit: limit, data: projects, statusCode: 200 };
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to retrieve projects', {
+        cause: error,
+        description: error.message,
+      });
+    }
   }
 
   @ApiOperation({
@@ -195,8 +209,20 @@ export class ProjectController {
     description: 'Provide Project by the provided ID, with collaboratorByroles',
   })
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe, ProjectExistsPipe) id: string) {
-    return this.projectService.findOne(+id);
+  async findOne(@Param('id', ParseIntPipe, ProjectExistsPipe) id: string) {
+    try {
+      const res = await this.projectService.findOne(+id);
+      return {
+        data: res,
+        statusCode: 200,
+        message: `Successfuly find project with ID #${id}`,
+      };
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to retrieve project', {
+        cause: error,
+        description: error.message,
+      });
+    }
   }
 
   @ApiBearerAuth('access-token')
@@ -220,11 +246,11 @@ export class ProjectController {
   })
   @UseGuards(JwtAuthGuard)
   @Put(':id')
-  @UseInterceptors(FileFieldsInterceptor([{ name: 'images' }]))
+  @UseInterceptors(FileFieldsInterceptor([{ name: 'newImages' }]))
   async update(
     @Param('id', ParseIntPipe, ProjectExistsPipe) id: number,
     @Body() updateProjectDto: UpdateProjectDto,
-    @UploadedFiles() files: { images?: Express.Multer.File[] },
+    @UploadedFiles() files: { newImages?: Express.Multer.File[] },
   ) {
     try {
       return {
@@ -232,14 +258,10 @@ export class ProjectController {
         data: await this.projectService.update(
           id,
           updateProjectDto,
-          files.images,
+          files.newImages,
         ),
       };
     } catch (error) {
-      if (error instanceof HttpException) {
-        throw error;
-      }
-
       throw new InternalServerErrorException('Failed to update project', {
         cause: error,
         description: error.message,
@@ -268,7 +290,21 @@ export class ProjectController {
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
   @HttpCode(HttpStatus.OK)
-  remove(@Param('id', ParseIntPipe, ProjectExistsPipe) id: string) {
-    return this.projectService.remove(+id);
+  async remove(@Param('id', ParseIntPipe, ProjectExistsPipe) id: string) {
+    try {
+      await this.projectService.remove(+id);
+      return {
+        statusCode: 200,
+        message: `Project with ID #${id} deleted successfully`,
+        data: undefined,
+      };
+    } catch (error) {
+      return {
+        statusCode: 500,
+        message: 'Failed to delete project',
+        data: undefined,
+        error: error.message,
+      };
+    }
   }
 }

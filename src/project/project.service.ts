@@ -192,7 +192,7 @@ export class ProjectService {
       if (!project[0]) throw new NotFoundException('Project not found');
 
       const existingImageUrls = project[0].images ?? [];
-      const invalidImages = updateProjectDto.existingImages.filter(
+      const invalidImages = updateProjectDto.images.filter(
         (image) => !existingImageUrls[0].includes(image),
       );
 
@@ -207,7 +207,7 @@ export class ProjectService {
           .update(projects)
           .set({
             ...updateProjectDto,
-            images: updateProjectDto.existingImages,
+            images: updateProjectDto.images,
             dateLaunched: new Date(updateProjectDto.dateLaunched),
           })
           .where(eq(projects.id, id))
@@ -249,7 +249,7 @@ export class ProjectService {
           .map((res) => res.reason);
 
         const deletedImages = existingImageUrls.filter(
-          (url) => !updateProjectDto.existingImages.includes(url),
+          (url) => !updateProjectDto.images.includes(url),
         );
 
         await Promise.all(
@@ -266,8 +266,7 @@ export class ProjectService {
             await tx
               .update(projects)
               .set({
-                images:
-                  updateProjectDto.existingImages.concat(successfulUploads),
+                images: updateProjectDto.images.concat(successfulUploads),
               })
               .where(eq(projects.id, id))
               .returning()

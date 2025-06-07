@@ -52,11 +52,25 @@ export class MembersController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @UseInterceptors(FileInterceptor('photo'))
-  create(
+  async create(
     @UploadedFile() photo: Express.Multer.File,
     @Body() createMemberDto: CreateMemberDto,
   ) {
-    return this.membersService.create(createMemberDto, photo);
+    try {
+      const res = await this.membersService.create(createMemberDto, photo);
+      return {
+        statusCode: 201,
+        message: 'Succesfully Created Members',
+        data: res,
+      };
+    } catch (error) {
+      return {
+        statusCode: 500,
+        message: 'Error creating member',
+        error: error.message,
+        data: null,
+      };
+    }
   }
 
   @ApiOperation({
@@ -75,8 +89,18 @@ export class MembersController {
     description: 'Filter members by role ID',
   })
   @Get()
-  findAll(@Query('role') role?: number) {
-    return this.membersService.findAll(role);
+  async findAll(@Query('role') role?: number) {
+    try {
+      const res = await this.membersService.findAll(role);
+      return { status: 200, message: 'Successfully Fetch Data', data: res };
+    } catch (error) {
+      return {
+        status: 500,
+        message: 'Error fetching data',
+        error: error.message,
+        data: null,
+      };
+    }
   }
 
   @ApiOperation({
@@ -95,8 +119,22 @@ export class MembersController {
   })
   @UseGuards(JwtAuthGuard)
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe, MemberExistsPipe) id: string) {
-    return this.membersService.findOne(+id);
+  async findOne(@Param('id', ParseIntPipe, MemberExistsPipe) id: string) {
+    try {
+      const res = await this.membersService.findOne(+id);
+      return {
+        status: 200,
+        message: `Successfully Fetch Data by Id #${id}`,
+        data: res,
+      };
+    } catch (error) {
+      return {
+        status: 500,
+        message: 'Error fetching member',
+        error: error.message,
+        data: null,
+      };
+    }
   }
 
   @ApiBearerAuth('access-token')
@@ -122,12 +160,26 @@ export class MembersController {
   @UseGuards(JwtAuthGuard)
   @Put(':id')
   @UseInterceptors(FileInterceptor('photo'))
-  update(
+  async update(
     @Param('id', ParseIntPipe, MemberExistsPipe) id: number,
     @UploadedFile() photo: Express.Multer.File,
     @Body() updateMemberDto: UpdateMemberDto,
   ) {
-    return this.membersService.update(id, updateMemberDto, photo);
+    try {
+      const res = await this.membersService.update(id, updateMemberDto, photo);
+      return {
+        status: 200,
+        message: `Successfully Updated Data by Id #${id}`,
+        data: res,
+      };
+    } catch (error) {
+      return {
+        status: 500,
+        message: 'Error updating member',
+        error: error.message,
+        data: null,
+      };
+    }
   }
 
   @ApiBearerAuth('access-token')
@@ -148,7 +200,17 @@ export class MembersController {
   })
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe, MemberExistsPipe) id: string) {
-    return this.membersService.remove(+id);
+  async remove(@Param('id', ParseIntPipe, MemberExistsPipe) id: string) {
+    try {
+      const res = await this.membersService.remove(+id);
+      return { statusCode: 200, message: res, data: undefined };
+    } catch (error) {
+      return {
+        statusCode: 500,
+        message: 'Error deleting member',
+        error: error.message,
+        data: null,
+      };
+    }
   }
 }

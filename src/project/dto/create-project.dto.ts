@@ -100,5 +100,5 @@ export class MulterClassCreateProjectDto extends CreateProjectDto {
     description: 'Multiple files upload images',
     required: false,
   })
-  images?: Express.Multer.File[];
+  newImages?: Express.Multer.File[];
 }

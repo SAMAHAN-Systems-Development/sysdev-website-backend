@@ -17,7 +17,7 @@ export class UpdateProjectDto extends CreateProjectDto {
       'https://example.com/image2.jpg',
     ],
   })
-  existingImages: string[];
+  images: string[];
 }
 export class MulterClassUpdateProjectDto extends UpdateProjectDto {
   @ApiProperty({
@@ -29,5 +29,5 @@ export class MulterClassUpdateProjectDto extends UpdateProjectDto {
     description: 'Multiple files upload images',
     required: false,
   })
-  images?: Express.Multer.File[];
+  newImages?: Express.Multer.File[];
 }
