@@ -67,15 +67,16 @@ docker compose -f docker-compose.prod.yml up -d --build
 npm run db:migrate
 ```
 
-You can proceed below if you need dummy data. if not just ignore this step 5.
-
 5. Generate Dummy Data (optional)
 
 ```bash
 npm run db:seed
 ```
 
+6. Ensure that you have successfully created minio `sysdev-images` and set it to public, you can access it [here](#web-guis-and-credentials) minio service.
+
 You have now successfully deployed a working production server! You can access it at `localhost:8000`. For more information about web GUIs and credentials, see the [Web GUIs and Credentials](#web-guis-and-credentials) section.
+
 
 ----
 
