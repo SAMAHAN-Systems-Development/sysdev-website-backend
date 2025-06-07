@@ -51,25 +51,20 @@ export class MembersController {
   @UseGuards(JwtAuthGuard)
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  @UseInterceptors(FileInterceptor('photo'))
+  @UseInterceptors(FileInterceptor('newPhoto'))
   async create(
-    @UploadedFile() photo: Express.Multer.File,
+    @UploadedFile() newPhoto: Express.Multer.File,
     @Body() createMemberDto: CreateMemberDto,
   ) {
     try {
-      const res = await this.membersService.create(createMemberDto, photo);
+      const res = await this.membersService.create(createMemberDto, newPhoto);
       return {
         statusCode: 201,
         message: 'Succesfully Created Members',
         data: res,
       };
     } catch (error) {
-      return {
-        statusCode: 500,
-        message: 'Error creating member',
-        error: error.message,
-        data: null,
-      };
+      return error;
     }
   }
 
@@ -94,12 +89,7 @@ export class MembersController {
       const res = await this.membersService.findAll(role);
       return { status: 200, message: 'Successfully Fetch Data', data: res };
     } catch (error) {
-      return {
-        status: 500,
-        message: 'Error fetching data',
-        error: error.message,
-        data: null,
-      };
+      return error;
     }
   }
 
@@ -128,12 +118,7 @@ export class MembersController {
         data: res,
       };
     } catch (error) {
-      return {
-        status: 500,
-        message: 'Error fetching member',
-        error: error.message,
-        data: null,
-      };
+      return error;
     }
   }
 
@@ -159,26 +144,25 @@ export class MembersController {
   })
   @UseGuards(JwtAuthGuard)
   @Put(':id')
-  @UseInterceptors(FileInterceptor('photo'))
+  @UseInterceptors(FileInterceptor('newPhoto'))
   async update(
     @Param('id', ParseIntPipe, MemberExistsPipe) id: number,
-    @UploadedFile() photo: Express.Multer.File,
+    @UploadedFile() newPhoto: Express.Multer.File,
     @Body() updateMemberDto: UpdateMemberDto,
   ) {
     try {
-      const res = await this.membersService.update(id, updateMemberDto, photo);
+      const res = await this.membersService.update(
+        id,
+        updateMemberDto,
+        newPhoto,
+      );
       return {
         status: 200,
         message: `Successfully Updated Data by Id #${id}`,
         data: res,
       };
     } catch (error) {
-      return {
-        status: 500,
-        message: 'Error updating member',
-        error: error.message,
-        data: null,
-      };
+      return error;
     }
   }
 
@@ -205,12 +189,7 @@ export class MembersController {
       const res = await this.membersService.remove(+id);
       return { statusCode: 200, message: res, data: undefined };
     } catch (error) {
-      return {
-        statusCode: 500,
-        message: 'Error deleting member',
-        error: error.message,
-        data: null,
-      };
+      return error;
     }
   }
 }

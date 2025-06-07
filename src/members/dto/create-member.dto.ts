@@ -52,5 +52,5 @@ export class MulterClassMemberDto extends CreateMemberDto {
     format: 'binary',
     description: 'Single file upload',
   })
-  photo?: Express.Multer.File;
+  newPhoto?: Express.Multer.File;
 }
