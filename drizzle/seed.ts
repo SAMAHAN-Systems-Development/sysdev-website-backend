@@ -130,11 +130,13 @@ export async function seedMembers() {
       name: 'Alice Johnson',
       email: faker.internet.email(),
       photo: faker.image.avatar(),
+      isVisible: true,
     },
     {
       name: 'Bob Smith',
       email: faker.internet.email(),
       photo: faker.image.avatar(),
+      isVisible: true,
     },
   ]);
   logger.log('✅ Memberss seeded');

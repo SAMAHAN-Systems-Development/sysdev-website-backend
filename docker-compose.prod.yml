@@ -46,7 +46,7 @@ services:
       MINIO_PUBLIC_URL: localhost:9000
       IMAGE_BUCKET: sysdev-images
     ports:
-      - "3000:3000" # Local port
+      - "8000:8000" # Local port
     depends_on:
       - postgres
 
