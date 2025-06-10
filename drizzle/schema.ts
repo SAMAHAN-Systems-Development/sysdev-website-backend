@@ -17,15 +17,28 @@ export const statusTagEnum = pgEnum('status_tag', [
   'upcoming',
   'ongoing',
 ]);
+
 export const typeTagEnum = pgEnum('type_tag', [
   'internal',
   'external',
   'cross_orgs',
 ]);
+
 export const users = pgTable('users', {
   id: serial('id').primaryKey(),
   email: varchar('email').unique().notNull(),
   password: varchar('password').notNull(),
+  modifiedAt: timestamp('modified_at')
+    .defaultNow()
+    .notNull()
+    .$onUpdate(() => new Date()),
+  createdAt: timestamp('created_at').defaultNow(),
+  deletedAt: timestamp('deleted_at'),
+});
+
+export const clients = pgTable('clients', {
+  id: serial('id').primaryKey(),
+  name: varchar('name', { length: 255 }).unique().notNull(),
   modifiedAt: timestamp('modified_at')
     .defaultNow()
     .notNull()
@@ -44,6 +57,7 @@ export const roles = pgTable('roles', {
   createdAt: timestamp('created_at').defaultNow(),
   deletedAt: timestamp('deleted_at'),
 });
+
 export const memberRoles = pgTable('member_roles', {
   id: serial('id').primaryKey(),
   memberId: integer('member_id')
@@ -80,6 +94,22 @@ export const projects = pgTable('projects', {
   status: statusTagEnum('status').notNull(),
   type: typeTagEnum('type').notNull(),
   featured: boolean('featured').default(false).notNull(),
+  modifiedAt: timestamp('modified_at')
+    .defaultNow()
+    .notNull()
+    .$onUpdate(() => new Date()),
+  createdAt: timestamp('created_at').defaultNow(),
+  deletedAt: timestamp('deleted_at'),
+});
+
+export const clientProjects = pgTable('client_projects', {
+  id: serial('id').primaryKey(),
+  projectId: integer('project_id')
+    .references(() => projects.id)
+    .notNull(),
+  clientId: integer('client_id')
+    .references(() => clients.id)
+    .notNull(),
   modifiedAt: timestamp('modified_at')
     .defaultNow()
     .notNull()

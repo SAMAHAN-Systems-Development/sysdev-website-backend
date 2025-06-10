@@ -12,6 +12,8 @@ import {
   DATABASE_CONNECTION,
 } from 'src/database/database-connection';
 import {
+  clientProjects,
+  clients,
   collaborator,
   collaboratorAssignments,
   members,
@@ -105,7 +107,13 @@ export class ProjectService {
       .from(projects)
       .where(eq(projects.id, id))
       .limit(1);
-
+    const clientProjectsData = await this.db
+      .select()
+      .from(clientProjects)
+      .leftJoin(clients, eq(clients.id, clientProjects.clientId))
+      .where(
+        and(eq(clientProjects.projectId, id), isNull(clientProjects.deletedAt)),
+      );
     const collaborators = await this.db
       .select()
       .from(collaborator)
@@ -138,7 +146,9 @@ export class ProjectService {
     const roleMap = Object.fromEntries(rolesList.map((r) => [r.id, r.name]));
     const memberMap = Object.fromEntries(membersList.map((m) => [m.id, m]));
     const orgMap = Object.fromEntries(orgsList.map((o) => [o.id, o]));
-
+    const clientMap = Object.fromEntries(
+      clientProjectsData.map((c) => [c.clients.id, c.clients]),
+    );
     const collaboratorsByRole: Record<
       string,
       { members: any[]; organizations: any[] }
@@ -161,6 +171,7 @@ export class ProjectService {
 
     return {
       title: proj.title,
+      clients: clientMap,
       dateLaunched: proj.dateLaunched,
       briefDesc: proj.briefDesc,
       fullDesc: proj.fullDesc,

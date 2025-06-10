@@ -14,6 +14,8 @@ import {
   memberRoles,
   organizations,
   collaboratorAssignments,
+  clients,
+  clientProjects,
 } from './schema'; // Adjust path as needed
 import { faker } from '@faker-js/faker';
 import { Logger } from '@nestjs/common';
@@ -307,13 +309,31 @@ export async function seedUsers() {
     logger.error('Users might already exists, or something went wrong', error);
   }
 }
-
+export async function seedClients() {
+  const clientsData = Array.from({ length: 5 }).map(() => ({
+    name: faker.person.fullName(),
+  }));
+  await db.insert(clients).values(clientsData);
+}
+export async function seedClientsProjects() {
+  const projectData = await db.select().from(projects);
+  await db.insert(clientProjects).values([
+    { projectId: projectData[0].id, clientId: 1 },
+    { projectId: projectData[0].id, clientId: 2 },
+    { projectId: projectData[0].id, clientId: 3 },
+    { projectId: projectData[0].id, clientId: 4 },
+    { projectId: projectData[1].id, clientId: 1 },
+    { projectId: projectData[1].id, clientId: 2 },
+  ]);
+}
 async function main() {
   try {
     logger.log('🌱 Starting seeding...');
     await createBucket(process.env.IMAGE_BUCKET);
     await seedUsers();
     await seedProjects();
+    await seedClients();
+    await seedClientsProjects();
     await seedRoles();
     await seedMembers();
     await seedMemberRoles();

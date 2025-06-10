@@ -78,6 +78,20 @@
       "when": 1748869216789,
       "tag": "0010_remove_unique_email_in_schema",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1749526438608,
+      "tag": "0011_added_clients",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1749532808007,
+      "tag": "0012_added_client_projects",
+      "breakpoints": true
     }
   ]
 }
