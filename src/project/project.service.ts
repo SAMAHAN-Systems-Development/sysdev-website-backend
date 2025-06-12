@@ -69,7 +69,8 @@ export class ProjectService {
   }
 
   async findAll(
-    sortBy: 'yearAsc' | 'yearDesc',
+    sortByYear: 'yearAsc' | 'yearDesc',
+    sortByName: 'desc' | 'asc',
     status?: StatusTag,
     type?: TypeTag,
     showFeaturedOnly?: boolean,
@@ -77,6 +78,25 @@ export class ProjectService {
     limit?: number,
   ) {
     const skip = (page - 1) * limit;
+
+    const orderByClauses = [desc(projects.featured)];
+
+    // Sort by year
+    if (sortByYear === 'yearDesc') {
+      orderByClauses.push(desc(projects.dateLaunched));
+    } else {
+      orderByClauses.push(asc(projects.dateLaunched));
+    }
+
+    // Sort by name
+    if (sortByName === 'desc') {
+      orderByClauses.push(desc(projects.title));
+    } else {
+      orderByClauses.push(asc(projects.title));
+    }
+
+    // Always add id for consistent pagination
+    orderByClauses.push(asc(projects.id));
 
     const query = await this.db
       .select()
@@ -88,13 +108,7 @@ export class ProjectService {
           showFeaturedOnly ? eq(projects.featured, true) : undefined,
         ),
       )
-      .orderBy(
-        desc(projects.featured),
-        sortBy === 'yearDesc'
-          ? desc(projects.dateLaunched)
-          : asc(projects.dateLaunched),
-        asc(projects.id), //to ensure consistent pagination
-      )
+      .orderBy(...orderByClauses)
       .limit(limit)
       .offset(skip);
 

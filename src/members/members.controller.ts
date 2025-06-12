@@ -16,7 +16,10 @@ import {
 } from '@nestjs/common';
 import { MembersService } from './members.service';
 import { CreateMemberDto, MulterClassMemberDto } from './dto/create-member.dto';
-import { UpdateMemberDto } from './dto/update-member.dto';
+import {
+  MulterClassMemberDtoUpdate,
+  UpdateMemberDto,
+} from './dto/update-member.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MemberExistsPipe } from './middleware/memberExisits.middleware';
@@ -123,7 +126,7 @@ export class MembersController {
   }
 
   @ApiBearerAuth('access-token')
-  @ApiBody({ type: MulterClassMemberDto })
+  @ApiBody({ type: MulterClassMemberDtoUpdate })
   @ApiConsumes('multipart/form-data')
   @ApiOperation({
     summary: 'Update Member',

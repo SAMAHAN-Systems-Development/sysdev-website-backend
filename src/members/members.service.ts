@@ -106,16 +106,13 @@ export class MembersService {
       .where(and(...condition))
       .orderBy(members.name);
     const rolesByMemberId = await this.getRolesByMemberId();
-
+    console.log(rolesByMemberId);
     const filteredResult = result
       .filter((row) => {
-        // Applied Role filter
         const rolesData = rolesByMemberId.get(row.id) || [];
 
         if (roleId) {
-          return rolesData.some(
-            (p: unknown) => (p as { id: number }).id === roleId,
-          );
+          return rolesData.some((p: any) => p.roles?.id === roleId);
         }
 
         return true;

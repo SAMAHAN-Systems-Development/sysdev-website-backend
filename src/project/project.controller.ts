@@ -101,7 +101,7 @@ export class ProjectController {
     description: 'Successfully retrieve all projects with pagination',
   })
   @ApiQuery({
-    name: 'sort',
+    name: 'sortByYear',
     required: false,
     description: 'Sort projects by year ascending or descending',
     schema: {
@@ -109,6 +109,16 @@ export class ProjectController {
       default: 'yearDesc',
     },
     example: 'yearDesc',
+  })
+  @ApiQuery({
+    name: 'sortByName',
+    required: false,
+    description: 'Sort projects by year ascending or descending',
+    schema: {
+      enum: ['desc', 'asc'],
+      default: 'desc',
+    },
+    example: 'desc',
   })
   @ApiQuery({
     name: 'status',
@@ -157,7 +167,8 @@ export class ProjectController {
   })
   @Get()
   async findAll(
-    @Query('sort') sortBy: 'yearDesc' | 'yearAsc' = 'yearDesc',
+    @Query('sortByYear') sortByYear: 'yearDesc' | 'yearAsc' = 'yearDesc',
+    @Query('sortByName') sortByName: 'desc' | 'asc' = 'desc',
     @Query('status') status?: StatusTag,
     @Query('type') type?: TypeTag,
     @Query('featured', new DefaultValuePipe(false), new ParseBoolPipe())
@@ -176,7 +187,8 @@ export class ProjectController {
 
     try {
       const projects = await this.projectService.findAll(
-        sortBy,
+        sortByYear,
+        sortByName,
         status,
         type,
         showFeaturedOnly,
