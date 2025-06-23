@@ -3,28 +3,35 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { useContainer } from 'class-validator';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
-  const config = new DocumentBuilder()
-    .setTitle('Sysdev Website')
-    .setDescription(
-      'An API for the Sysdev Website: \n\n\n Currently Working Endpoints: \n - App \n - Auth \n - Members \n - Projects',
-    )
-    .setVersion('1.0')
-    .addBearerAuth(
-      {
-        type: 'http',
-        scheme: 'bearer',
-        bearerFormat: 'JWT',
-      },
-      'access-token',
-    )
-    .addSecurityRequirements('bearer')
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+
+  const configService = app.get(ConfigService);
+  const environment = configService.get<string>('NODE_ENV') || 'PRODUCTION';
+
+  if (environment !== 'PRODUCTION') {
+    const config = new DocumentBuilder()
+      .setTitle('Sysdev Website')
+      .setDescription(
+        'An API for the Sysdev Website: \n\n\n Currently Working Endpoints: \n - App \n - Auth \n - Members \n - Projects',
+      )
+      .setVersion('1.0')
+      .addBearerAuth(
+        {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+        'access-token',
+      )
+      .addSecurityRequirements('bearer')
+      .build();
+    const document = SwaggerModule.createDocument(app, config);
+    SwaggerModule.setup('api', app, document);
+  }
 
   app.useGlobalPipes(
     new ValidationPipe({
