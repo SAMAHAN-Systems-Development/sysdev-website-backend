@@ -60,109 +60,190 @@ export async function seedProjects() {
   logger.log('Seeding projectss...');
   await db.insert(projects).values([
     {
-      title: 'Student Management System',
-      briefDesc: 'A system for managing student records and activities.',
-      fullDesc: 'Full description for Student Management System.',
-      dateLaunched: new Date(),
+      title: 'FYLP Website',
+      briefDesc:
+        'A digital hub for the convention, providing attendees with essential information and features.',
+      fullDesc:
+        'A digital hub for the convention, providing attendees with essential information and features such as registration, program flow, speaker details, FAQs, and more.',
+      dateLaunched: new Date('2024-08-01T00:00:00.000Z'),
       links: [
-        { name: 'Production', link: 'https://example.com' },
-        { name: 'Repository', link: 'https://github.com/example/student-mgmt' },
-      ],
-      images: ['https://example.com/img1.jpg', 'https://example.com/img2.jpg'],
-      status: 'active',
-      type: 'internal',
-      featured: true,
-    },
-    {
-      title: 'Inventory Tracker',
-      briefDesc: 'Tracks inventory for small businesses.',
-      fullDesc: 'Full description for Inventory Tracker.',
-      dateLaunched: new Date(),
-      links: [
-        { name: 'Production', link: 'https://example.com' },
-        { name: 'Repository', link: 'https://github.com/example/inventory' },
-      ],
-      images: ['https://example.com/img1.jpg', 'https://example.com/img2.jpg'],
-      status: 'active',
-      type: 'internal',
-      featured: true,
-    },
-    {
-      title: 'Event Scheduler',
-      briefDesc: 'Schedules and manages events efficiently.',
-      fullDesc: 'Full description for Event Scheduler.',
-      dateLaunched: new Date(),
-      links: [
-        { name: 'Production', link: 'https://example.com' },
         {
+          link: 'https://misscon2025.info/',
+          name: 'Production',
+        },
+        {
+          link: 'https://github.com/SAMAHAN-Systems-Development/FYLP-frontend-2024',
           name: 'Repository',
-          link: 'https://github.com/example/event-scheduler',
         },
       ],
-      images: ['https://example.com/img1.jpg', 'https://example.com/img2.jpg'],
+      images: [
+        'project-images/fylp-1.png',
+        'project-images/fylp-2.png',
+        'project-images/fylp-3.png',
+      ],
       status: 'active',
-      type: 'internal',
+      type: 'not_set',
+      featured: false,
+    },
+    {
+      title: 'SAMAHAN PALARO 2024',
+      briefDesc:
+        'A commemorative website showcasing the highlights and memories of SAMAHAN Palaro 2024.',
+      fullDesc:
+        'The SAMAHAN PALARO 2024 website was created as a digital archive to celebrate and preserve the spirit of this year’s university-wide sports festival. It features event highlights, photos, and important moments that defined the Palaro experience for the Ateneo community.',
+      dateLaunched: new Date('2025-05-01T00:00:00.000Z'),
+      links: [
+        {
+          link: 'https://samahan.addu.edu.ph/palaro-2024/',
+          name: 'Production',
+        },
+        {
+          link: 'https://github.com/SAMAHAN-Systems-Development/samahan-palaro-2024',
+          name: 'Repository',
+        },
+      ],
+      images: [
+        'project-images/palaro-1.png',
+        'project-images/palaro-2.png',
+        'project-images/palaro-3.png',
+      ],
+      status: 'active',
+      type: 'not_set',
       featured: true,
     },
     {
-      title: 'Online Learning Platform',
-      briefDesc: 'A platform for online courses and learning.',
-      fullDesc: 'Full description for Online Learning Platform.',
-      dateLaunched: new Date(),
+      title: 'MISSCON 2025',
+      briefDesc:
+        'A digital hub for the convention, providing attendees with essential information and features.',
+      fullDesc:
+        'A digital hub for the convention, providing attendees with essential information and features such as registration, program flow, speaker details, FAQs, and more.',
+      dateLaunched: new Date('2025-01-01T00:00:00.000Z'),
       links: [
-        { name: 'Production', link: 'https://example.com' },
         {
+          link: 'https://misscon2025.info/',
+          name: 'Production',
+        },
+        {
+          link: 'https://github.com/SAMAHAN-Systems-Development/MISSCON-2025',
           name: 'Repository',
-          link: 'https://github.com/example/learning-platform',
         },
       ],
-      images: ['https://example.com/img1.jpg', 'https://example.com/img2.jpg'],
+      images: [
+        'project-images/misscon-1.png',
+        'project-images/misscon-2.png',
+        'project-images/misscon-3.png',
+      ],
       status: 'active',
-      type: 'internal',
-      featured: true,
+      type: 'not_set',
+      featured: false,
+    },
+    {
+      title: 'SAMAHAN Newsfeed',
+      briefDesc:
+        'An annual publication by SAMAHAN Communications that chronicles student life and events through powerful storytelling.',
+      fullDesc:
+        'The SAMAHAN NewsFeed is an annual publication spearheaded by SAMAHAN Communications, the official public affairs and information arm of SAMAHAN. It serves as a platform where voices carry weight and moments find permanence—woven into compelling narratives that reflect the shared journey of Ateneans throughout the academic year. Through this initiative, the department champions the power of storytelling, fostering meaningful communication and connection within the university.',
+      dateLaunched: new Date('2025-05-01T00:00:00.000Z'),
+      links: [
+        {
+          link: 'https://samahan.addu.edu.ph/newsfeed/',
+          name: 'Production',
+        },
+        {
+          link: 'https://github.com/SAMAHAN-Systems-Development/SAMAHAN-Newsfeed-Frontend',
+          name: 'Repository',
+        },
+      ],
+      images: [
+        'project-images/newsfeed-1.png',
+        'project-images/newsfeed-2.png',
+        'project-images/newsfeed-3.png',
+      ],
+      status: 'active',
+      type: 'not_set',
+      featured: false,
     },
   ]);
   logger.log('✅ Projects seeded');
 }
+import * as path from 'path';
+import { readFile } from 'fs/promises';
 
+async function loadMembersJson() {
+  const __dirname = path.dirname(__filename);
+  const raw = await readFile(
+    path.join(__dirname, 'updated-members.json'),
+    'utf-8',
+  );
+  return JSON.parse(raw) as Array<{
+    name: string;
+    email: string;
+    photo: string;
+    roles: Array<{ roles: { name: string } }>;
+  }>;
+}
 export async function seedMembers() {
   logger.log('Seeding members...');
-  await db.insert(members).values([
-    {
-      name: 'Alice Johnson',
-      email: faker.internet.email(),
-      photo: faker.image.avatar(),
-      isVisible: true,
-    },
-    {
-      name: 'Bob Smith',
-      email: faker.internet.email(),
-      photo: faker.image.avatar(),
-      isVisible: true,
-    },
-  ]);
-  logger.log('✅ Memberss seeded');
+  const membersJson = await loadMembersJson();
+
+  const memberValues = membersJson.map((m) => ({
+    name: m.name,
+    email: m.email,
+    photo: m.photo,
+    isVisible: true,
+  }));
+
+  await db.insert(members).values(memberValues);
+  logger.log(`✅ Seeded ${memberValues.length} members`);
 }
+
 export async function seedMemberRoles() {
-  logger.log('Seeding Member Roles..');
-  const membersData = await db.select().from(members);
-  const rolesData = await db.select().from(roles);
-  await db.insert(memberRoles).values([
-    {
-      memberId: membersData[0].id,
-      roleId: rolesData[0].id,
-    },
-    {
-      memberId: membersData[0].id,
-      roleId: rolesData[0].id,
-    },
-  ]);
-  logger.log('✅ Member Roles seeded');
+  logger.log('Seeding member roles...');
+  const membersJson = await loadMembersJson();
+
+  const dbMembers = await db.select().from(members);
+  const dbRoles = await db.select().from(roles);
+
+  const memberRoleValues: Array<{ memberId: number; roleId: number }> = [];
+
+  for (const member of membersJson) {
+    const dbMember = dbMembers.find((m) => m.email === member.email);
+    if (!dbMember) continue;
+
+    for (const roleObj of member.roles) {
+      const roleName = roleObj.roles.name;
+      const dbRole = dbRoles.find((r) => r.name === roleName);
+      if (!dbRole) continue;
+
+      memberRoleValues.push({
+        memberId: dbMember.id,
+        roleId: dbRole.id,
+      });
+    }
+  }
+
+  await db.insert(memberRoles).values(memberRoleValues);
+  logger.log(`✅ Seeded ${memberRoleValues.length} member-role assignments`);
 }
+import membersJson from './updated-members.json';
+
 export async function seedRoles() {
-  logger.log('Seeding roless...');
-  await db.insert(roles).values([{ name: 'Developer' }, { name: 'Designer' }]);
-  logger.log('✅ Roless seeded');
+  logger.log('Seeding roles...');
+
+  const roleSet = new Set<string>();
+
+  for (const member of membersJson) {
+    for (const roleObj of member.roles) {
+      roleSet.add(roleObj.roles.name);
+    }
+  }
+
+  const roleValues = [...roleSet].map((name) => ({
+    name,
+  }));
+
+  await db.insert(roles).values(roleValues);
+  logger.log(`✅ Seeded ${roleValues.length} unique roles`);
 }
 
 export async function seedCollaborators() {

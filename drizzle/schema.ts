@@ -22,6 +22,7 @@ export const typeTagEnum = pgEnum('type_tag', [
   'internal',
   'external',
   'cross_orgs',
+  'not_set',
 ]);
 
 export const users = pgTable('users', {

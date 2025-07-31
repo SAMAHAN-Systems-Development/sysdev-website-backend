@@ -1,0 +1,1 @@
+ALTER TYPE "public"."type_tag" ADD VALUE 'not_set';

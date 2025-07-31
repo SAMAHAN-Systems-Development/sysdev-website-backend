@@ -92,6 +92,13 @@
       "when": 1749532808007,
       "tag": "0012_added_client_projects",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1753977961789,
+      "tag": "0013_freezing_dreaming_celestial",
+      "breakpoints": true
     }
   ]
 }

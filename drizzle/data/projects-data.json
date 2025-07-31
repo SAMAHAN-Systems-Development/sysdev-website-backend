@@ -1,0 +1,102 @@
+[
+  
+  {
+    "title": "FYLP Website",
+    "briefDesc": "A digital hub for the convention, providing attendees with essential information and features.",
+    "fullDesc": "A digital hub for the convention, providing attendees with essential information and features such as registration, program flow, speaker details, FAQs, and more.",
+    "datelaunched": "2024-08-01T00:00:00.000Z",
+    "links": [
+      {
+        "link": "https://misscon2025.info/",
+        "name": "Production"
+      },
+      {
+        "link": "https://github.com/SAMAHAN-Systems-Development/FYLP-frontend-2024",
+        "name": "Repository"
+      }
+    ],
+    "images": [
+      "project-images/fylp-1.png",
+      "project-images/fylp-2.png",
+      "project-images/fylp-3.png"
+    ],
+    "status": "active",
+    "featured": false,
+    "modifiedAt": "2024-08-01T00:00:00.000Z",
+    "createdAt": "2024-08-01T00:00:00.000Z",
+    "deletedAt": null
+  },
+  {
+    "title": "MISSCON 2025",
+    "briefDesc": "A digital hub for the convention, providing attendees with essential information and features.",
+    "fullDesc": "A digital hub for the convention, providing attendees with essential information and features such as registration, program flow, speaker details, FAQs, and more.",
+    "datelaunched": "2025-01-01T00:00:00.000Z",
+    "links": [
+      {
+        "link": "https://misscon2025.info/",
+        "name": "Production"
+      },
+      {
+        "link": "https://github.com/SAMAHAN-Systems-Development/MISSCON-2025",
+        "name": "Repository"
+      }
+    ],
+    "images": [
+      "project-images/misscon-1.png",
+      "project-images/misscon-2",
+      "project-images/misscon-3.png"
+    ],
+    "status": "active",
+    "type": "[No Information]",
+    "featured": false
+  },
+  {
+    "title": "SAMAHAN PALARO 2024",
+    "briefDesc": "A commemorative website showcasing the highlights and memories of SAMAHAN Palaro 2024.",
+    "fullDesc": "The SAMAHAN PALARO 2024 website was created as a digital archive to celebrate and preserve the spirit of this year’s university-wide sports festival. It features event highlights, photos, and important moments that defined the Palaro experience for the Ateneo community.",
+
+    "datelaunched": "2025-05-01T00:00:00.000Z",
+    "links": [
+      {
+        "link": "https://samahan.addu.edu.ph/palaro-2024/",
+        "name": "Production"
+      },
+      {
+        "link": "https://github.com/SAMAHAN-Systems-Development/samahan-palaro-2024",
+        "name": "Repository"
+      }
+    ],
+    "images": [
+      "project-images/palaro-1.png",
+      "project-images/palaro-2",
+      "project-images/palaro-3.png"
+    ],
+    "status": "active",
+    "type": "[No Information]",
+    "featured": false
+  },
+  {
+    "title": "SAMAHAN Newsfeed",
+    "briefDesc": "An annual publication by SAMAHAN Communications that chronicles student life and events through powerful storytelling.",
+    "fullDesc": "The SAMAHAN NewsFeed is an annual publication spearheaded by SAMAHAN Communications, the official public affairs and information arm of SAMAHAN. It serves as a platform where voices carry weight and moments find permanence—woven into compelling narratives that reflect the shared journey of Ateneans throughout the academic year. Through this initiative, the department champions the power of storytelling, fostering meaningful communication and connection within the university.",
+    "datelaunched": "2025-05-01T00:00:00.000Z",
+    "links": [
+      {
+        "link": "https://samahan.addu.edu.ph/newsfeed/",
+        "name": "Production"
+      },
+      {
+        "link": "https://github.com/SAMAHAN-Systems-Development/SAMAHAN-Newsfeed-Frontend",
+        "name": "Repository"
+      }
+    ],
+    "images": [
+      "project-images/newsfeed-1.png",
+      "project-images/newsfeed-2",
+      "project-images/newsfeed-3.png"
+    ],
+    "status": "active",
+    "type": "[No Information]",
+    "featured": false
+  }
+]

@@ -1,0 +1,1478 @@
+[
+    {
+        "id": 1,
+        "name": "Advincula Jemriz A",
+        "email": "jaadvincula@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/advincula-jemriz-a.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 1,
+            "name": "DevOps",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Aguado, Emmanuel, Diaz",
+        "email": "eaguado@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/aguado-emmanuel-diaz.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 2,
+            "name": "Fullstack",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Aliño, Jose Miguel, Tolentino",
+        "email": "jmtalino@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/alino-jose-miguel-tolentino.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 2,
+            "name": "Fullstack",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Almonte, Dominic Miguel D.",
+        "email": "dmdalmonte@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/almonte-dominic-miguel-d.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 3,
+            "name": "UI/UX",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Amparo, Althea Kristian, Talua",
+        "email": "aktamparo@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/amparo-althea-kristian-talua.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 3,
+            "name": "UI/UX",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 6,
+        "name": "Ang, Megan Louise M.",
+        "email": "mlmang@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/ang-megan-louise-m.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 3,
+            "name": "UI/UX",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Angeles, Martina Aaron M.",
+        "email": "mamangeles@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/angeles-martina-aaron-m.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 3,
+            "name": "UI/UX",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 7,
+            "name": "Project Manager",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 8,
+        "name": "Asombrado, Kervi Kent, Cubillas",
+        "email": "kkcasombrado@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/asombrado-kervi-kent-cubillas.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 4,
+            "name": "Frontend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 9,
+        "name": "Banggud, Josh Elizalde",
+        "email": "jeabanggud@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/banggud-josh-elizalde.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 5,
+            "name": "Creative",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 10,
+        "name": "Bersabal, Ron Joshua, Loberiza",
+        "email": "rjlbersabal@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/bersabal-ron-joshua-loberiza.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 2,
+            "name": "Fullstack",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 11,
+        "name": "Bulao, Adrianne Mykhel Continido",
+        "email": "amcbulao@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/bulao-adrianne-mykhel-continido.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 6,
+            "name": "Backend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 12,
+        "name": "Calong, Kirby Josh Occillada",
+        "email": "kjocalong@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/calong-kirby-josh-occillada.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 4,
+            "name": "Frontend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 13,
+        "name": "Carin, Mark Lyod",
+        "email": "mlbcarin@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/carin-mark-lyod.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 5,
+            "name": "Creative",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 9,
+            "name": "Creatives Head",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 14,
+        "name": "Casas, Francis Rhaey L.",
+        "email": "frlcasas@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/casas-francis-rhaey-l.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 6,
+            "name": "Backend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 15,
+        "name": "Casiano, Peter Andre",
+        "email": "pacasiano@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/casiano-peter-andre.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 4,
+            "name": "Frontend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 16,
+        "name": "Ceniza, Ruper Art Sanchez",
+        "email": "rasceniza@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/ceniza-ruper-art-sanchez.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 1,
+            "name": "DevOps",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 17,
+        "name": "Chavez, Sean Elijah Vallejo",
+        "email": "sevchavez@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/chavez-sean-elijah-vallejo.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 4,
+            "name": "Frontend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 18,
+        "name": "Clarde, Mark Cyryl Arapoc",
+        "email": "mcaclarde@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/clarde-mark-cyryl-arapoc.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 6,
+            "name": "Backend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 19,
+        "name": "Cruz, Erika Hannah, Lu",
+        "email": "ehlcruz@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/cruz-erika-hannah-lu.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 3,
+            "name": "UI/UX",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 20,
+        "name": "Dable, Nica Zoe, Alerta",
+        "email": "nzadable@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/dable-nica-zoe-alerta.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 4,
+            "name": "Frontend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 7,
+            "name": "Project Manager",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 21,
+        "name": "Diaz, Jan Dexter Naval",
+        "email": "jdndiaz@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/diaz-jan-dexter-naval.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 5,
+            "name": "Creative",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 22,
+        "name": "Dicipulo, Earl Geibriel S.",
+        "email": "egsdicipulo@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/dicipulo-earl-geibriel-s.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 3,
+            "name": "UI/UX",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 8,
+            "name": "Quality Assurance",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 23,
+        "name": "Du, Ellyanna Nicole L.",
+        "email": "enldu@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/du-ellyanna-nicole-l.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 4,
+            "name": "Frontend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 7,
+            "name": "Project Manager",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 8,
+            "name": "Quality Assurance",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 24,
+        "name": "Dulaugon, Loejee Miguel, Lawas",
+        "email": "ldulaugon123@gmail.com",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/dulaugon-loejee-miguel-lawas.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 4,
+            "name": "Frontend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 25,
+        "name": "Eclarinal, Kein Daryle Fernandez",
+        "email": "kdfeclarinal@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/eclarinal-kein-daryle-fernandez.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 6,
+            "name": "Backend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 26,
+        "name": "Eloja, Marvin Paul D.",
+        "email": "mpdeloja@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/eloja-marvin-paul-d.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 2,
+            "name": "Fullstack",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 27,
+        "name": "Eramis, Shika Rani Balisua",
+        "email": "srberamis@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/eramis-shika-rani-balisua.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 3,
+            "name": "UI/UX",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 28,
+        "name": "Eroy, Derick Lance P.",
+        "email": "deroy@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/eroy-derick-lance-p.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 2,
+            "name": "Fullstack",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 29,
+        "name": "Espejo, Anya Jessica Lindzey, Yangyang",
+        "email": "aespejo@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/espejo-anya-jessica-lindzey-yangyang.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 5,
+            "name": "Creative",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 30,
+        "name": "Espera, Mae Angela Alferez",
+        "email": "maaespera@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/espera-mae-angela-alferez.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 4,
+            "name": "Frontend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 31,
+        "name": "Fabul, Jhon Glenn, La Guardia",
+        "email": "jgfabul@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/fabul-jhon-glenn-la-guardia.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 7,
+            "name": "Project Manager",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 32,
+        "name": "Gempesaw, Cassey Anne, Tapon",
+        "email": "catgempesaw@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/gempesaw-cassey-anne-tapon.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 1,
+            "name": "DevOps",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 33,
+        "name": "Haw, Sarah Yu",
+        "email": "syhaw@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/haw-sarah-yu.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 3,
+            "name": "UI/UX",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 7,
+            "name": "Project Manager",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 8,
+            "name": "Quality Assurance",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 34,
+        "name": "Jardiel, Keshia Angela Pellano",
+        "email": "kjardiel@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/jardiel-keshia-angela-pellano.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 5,
+            "name": "Creative",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 35,
+        "name": "Juarbal, Evanica Rose, Recto",
+        "email": "errjuarbal@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/juarbal-evanica-rose-recto.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 8,
+            "name": "Quality Assurance",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 36,
+        "name": "Kuan, Anya Patricia Mesias",
+        "email": "apmkuan@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/kuan-anya-patricia-mesias.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 4,
+            "name": "Frontend",
+            "modifiedAt": "2025-07-17T00:0:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 37,
+        "name": "Labuguen, Isabelle Faith, Namqui",
+        "email": "ifnlabuguen@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/labuguen-isabelle-faith-namqui.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 6,
+            "name": "Backend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 7,
+            "name": "Project Manager",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 10,
+            "name": "Auditor",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 38,
+        "name": "Lampa, John Kyle, Raiz",
+        "email": "jkrlampa@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/lampa-john-kyle-raiz.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 4,
+            "name": "Frontend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 8,
+            "name": "Quality Assurance",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 39,
+        "name": "Layos, Benedict John, R.",
+        "email": "blayos@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/layos-benedict-john-r.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 7,
+            "name": "Project Manager",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 40,
+        "name": "Liu, Ej, Fusingan",
+        "email": "efliu@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/liu-ej-fusingan.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 4,
+            "name": "Frontend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 8,
+            "name": "Quality Assurance",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 41,
+        "name": "Lo, Ivan James Abadilla",
+        "email": "ijalo@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/lo-ivan-james-abadilla.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 4,
+            "name": "Frontend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 42,
+        "name": "Mabano, Mariel Gica",
+        "email": "mgmabano@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/mabano-mariel-gica.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 4,
+            "name": "Frontend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 11,
+            "name": "Secretary General",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 43,
+        "name": "Macabangon, Clyde Cedrick F.",
+        "email": "cccmacabangon@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/macabangon-clyde-cedrick-f.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 3,
+            "name": "UI/UX",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 44,
+        "name": "Macias, Aaron Justin J.",
+        "email": "aaron.justin.macias@gmail.com",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/macias-aaron-justin-j.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 2,
+            "name": "Fullstack",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 12,
+            "name": "Treasurer",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 45,
+        "name": "Manibpel, Shaira Lou, Selim",
+        "email": "smanibpel@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/manibpel-shaira-lou-selim.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 5,
+            "name": "Creative",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 46,
+        "name": "Manon-og, James A.",
+        "email": "jamanon-og@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/manon-og-james-a.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 6,
+            "name": "Backend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 47,
+        "name": "Matayabas, Jan Patrick, Diosana",
+        "email": "jpdmatayabas@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/matayabas-jan-patrick-diosana.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 2,
+            "name": "Fullstack",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 7,
+            "name": "Project Manager",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 13,
+            "name": "External Affairs Head",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 48,
+        "name": "Matila, Alyssa Mhie, Mauche",
+        "email": "ammmatila@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/matila-alyssa-mhie-mauche.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 4,
+            "name": "Frontend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 1,
+            "name": "DevOps",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 14,
+            "name": "Public Relations Officer",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 49,
+        "name": "Megriño, Job Stefan, Paracuelles",
+        "email": "jspmegrino@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/megrino-job-stefan-paracuelles.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 8,
+            "name": "Quality Assurance",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 50,
+        "name": "Mejorada, Arabella Grace Mendoza",
+        "email": "arabella.mejorada@gmail.com",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/mejorada-arabella-grace-mendoza.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 4,
+            "name": "Frontend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 7,
+            "name": "Project Manager",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 15,
+            "name": "Deputy Director",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 51,
+        "name": "Millondaga, Shiloh",
+        "email": "smmillondaga@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/millondaga-shiloh.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 8,
+            "name": "Quality Assurance",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 52,
+        "name": "Modin, Kristyle Marie, Guardaquibel",
+        "email": "kmgmodin@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/modin-kristyle-marie-guardaquibel.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 8,
+            "name": "Quality Assurance",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 53,
+        "name": "Molero, Raffi O.",
+        "email": "rmolero@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/molero-raffi-o.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 6,
+            "name": "Backend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 54,
+        "name": "Nacar, Ram Christian, Delacruz",
+        "email": "rcdnacar@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/nacar-ram-christian-delacruz.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 4,
+            "name": "Frontend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 55,
+        "name": "Natividad, Karl Justin Angelo, Salon",
+        "email": "kjasnatividad@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/natividad-karl-justin-angelo-salon.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 6,
+            "name": "Backend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 56,
+        "name": "Nellas, Arthur Gabriel, P.",
+        "email": "agpnellas@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/nellas-arthur-gabriel-p.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 7,
+            "name": "Project Manager",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 57,
+        "name": "Niñora, Michael Andrei P.",
+        "email": "mapninora@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/ninora-michael-andrei-p.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 4,
+            "name": "Frontend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 58,
+        "name": "Paraiso, Marjhealou Nina Anne, Mejia",
+        "email": "mnamparaiso@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/paraiso-marjhealou-nina-anne-mejia.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 2,
+            "name": "Fullstack",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 59,
+        "name": "Pigao, Maverick Jasper",
+        "email": "mjrpigao@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/pigao-maverick-jasper.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 3,
+            "name": "UI/UX",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 16,
+            "name": "UI/UX Head",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 60,
+        "name": "Prado, Janriz Christian, Ugat",
+        "email": "jcuprado@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/prado-janriz-christian-ugat.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 6,
+            "name": "Backend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 61,
+        "name": "Ramirez, Paolo Luis",
+        "email": "paolrramirez@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/ramirez-paolo-luis.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 4,
+            "name": "Frontend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 17,
+            "name": "Frontend Head",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 62,
+        "name": "Regencia, Harriet Jaymee Coral",
+        "email": "harjcregencia@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/regencia-harriet-jaymee-coral.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 6,
+            "name": "Backend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 63,
+        "name": "Rivera, John Michael, Ferrera",
+        "email": "jmfrivera@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/rivera-john-michael-ferrera.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 3,
+            "name": "UI/UX",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 64,
+        "name": "Sarillo, Adolfo Cedric Salcedo",
+        "email": "adocssarillo@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/sarillo-adolfo-cedric-salcedo.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 6,
+            "name": "Backend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 7,
+            "name": "Project Manager",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 65,
+        "name": "Tesoro, Sam Adrianne R.",
+        "email": "sartesoro@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/tesoro-sam-adrianne-r.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 3,
+            "name": "UI/UX",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 66,
+        "name": "Tollo, Aj Rizaldo",
+        "email": "artollo@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/tollo-aj-rizaldo.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 2,
+            "name": "Fullstack",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 8,
+            "name": "Quality Assurance",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 67,
+        "name": "Utara, Yassir, Mastura",
+        "email": "yassirutara@gmail.com",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/utara-yassir-mastura.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 4,
+            "name": "Frontend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 68,
+        "name": "Vales, Marc Linnus A.",
+        "email": "imhamlock@gmail.com",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/vales-marc-linnus-a.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 4,
+            "name": "Frontend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 69,
+        "name": "Valmoria, Jiyo Seth, N",
+        "email": "jsnvalmoria@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/valmoria-jiyo-seth-n.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 2,
+            "name": "Fullstack",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 7,
+            "name": "Project Manager",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 8,
+            "name": "Quality Assurance",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 19,
+            "name": "Director",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 70,
+        "name": "Vitualla, Brian Velasco",
+        "email": "bvvitualla@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/vitualla-brian-velasco.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 2,
+            "name": "Fullstack",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 71,
+        "name": "Wabina, Ivan Sam, Rodis",
+        "email": "isrwabina@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/wabina-ivan-sam-rodis.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 6,
+            "name": "Backend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        },
+        {
+            "roles": {
+            "id": 18,
+            "name": "Backend Head",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    },
+    {
+        "id": 72,
+        "name": "Yap, Anthony Dexter Lim",
+        "email": "antdlyap@addu.edu.ph",
+        "photo": "/Sysdev Website Folder/Assets/Members Page/yap-anthony-dexter-lim.png",
+        "roles": [
+        {
+            "roles": {
+            "id": 6,
+            "name": "Backend",
+            "modifiedAt": "2025-07-17T00:00:00.000Z",
+            "createdAt": "2025-07-17T00:00:00.000Z",
+            "deletedAt": null
+            }
+        }
+        ]
+    }
+]
